@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Rogue",
+        "hp": 80,
+        "atk": 8,
+        "def": 50,
+        "spe": "invisible"
+    },
+    {
+        "name": "Warrior",
+        "hp": 100,
+        "atk": 5,
+        "def": 70,
+        "spe": "Atk boost"
+    },
+    {
+        "name": "Gunner",
+        "hp": 120,
+        "atk": 9.2,
+        "def": 20,
+        "spe": "Multiple shoot"
+    },
+    {
+        "name": "Developer",
+        "hp": 80,
+        "atk": 13,
+        "def": 0,
+        "spe": "Hack"
+    },
+    {
+        "name": "Admin",
+        "hp": 200,
+        "atk": 50,
+        "def": 100,
+        "spe": "God mod"
+    }
+]
