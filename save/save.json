@@ -1,13 +1,21 @@
 {
-    "charName": "Administratueur",
-    "charClassId": 4,
+    "charName": "Dev'ou\u00e9",
+    "charClassId": 3,
     "charClass": {
-        "name": "Admin",
-        "hp": 200,
-        "atk": 100000,
-        "def": 100,
-        "acr": 100,
-        "spe": "God mod"
+        "name": "Developer",
+        "hp": 80,
+        "atk": 13,
+        "def": 0,
+        "acr": 60,
+        "spe": {
+            "name": "Hack",
+            "target": "monster",
+            "effect": {
+                "focus": "def",
+                "alterate": "-",
+                "value": "70"
+            }
+        }
     },
     "charLevel": 1,
     "charExp": 0,
