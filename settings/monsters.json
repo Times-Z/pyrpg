@@ -44,5 +44,28 @@
         },
         "expMin": 20,
         "expMax": 110
+    },
+    {
+        "id": 3,
+        "name": "Slagtooth",
+        "minHp": 150,
+        "maxHp": 250,
+        "minAtk": 10,
+        "maxAtk": 15,
+        "minAcr": 50,
+        "maxAcr": 70,
+        "def": 13,
+        "spel": {
+            "name": "Shlag call",
+            "target": "self",
+            "effect": {
+                "focus": "atk",
+                "alterate": "+",
+                "minRange": 2,
+                "maxRange": 5
+            }
+        },
+        "expMin": 20,
+        "expMax": 110
     }
 ]

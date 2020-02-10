@@ -332,7 +332,7 @@ class Game:
         elif action == "2":
             self.protect(self, monster)
         elif action == "3":
-            print("RUN")
+            self.escape(self, monster)
         else:
             self.showActions(self, self.me, monster)
 
@@ -363,6 +363,20 @@ class Game:
 
     def specialSkill(self, monster):
         print(json.dumps(self.me.spe, indent=4))
+        # Exemple output
+        # {
+        #     "name": "Hack",
+        #     "target": "monster",
+        #     "effect": {
+        #         "focus": "def",
+        #         "alterate": "-",
+        #         "value": "70"
+        #     }
+        # }
+
+    
+    def escape(self, monster):
+        print('Escaping funct')
 
     def ennemyAction(self, monster):
         Settings.Addspace(Settings, 2)
