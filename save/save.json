@@ -1,7 +1,15 @@
-[
-    {
-        "charName": "Crash-Zeus",
-        "charClass": 4,
-        "charLevel": 999
-    }
-]
+{
+    "charName": "Administratueur",
+    "charClassId": 4,
+    "charClass": {
+        "name": "Admin",
+        "hp": 200,
+        "atk": 100000,
+        "def": 100,
+        "acr": 100,
+        "spe": "God mod"
+    },
+    "charLevel": 1,
+    "charExp": 0,
+    "score": 0
+}
