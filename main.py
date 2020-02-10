@@ -24,6 +24,7 @@ class Game:
     charExp = 0
     score = 0
     turn = 1
+    useSpe = 0
 
     def __init__(self):
         print(Fore.GREEN + "R" + Fore.YELLOW + "py")
@@ -320,7 +321,8 @@ class Game:
 
     def showActions(self, me, monster):
         print("0 -> Attak")
-        print("1 -> Special : %s " % self.me.spe['name'])
+        if self.useSpe == 0:
+            print("1 -> Special : %s " % self.me.spe['name'])
         print("2 -> Defend (%i %%)" % self.me.defc)
         print("3 -> Escape")
         Settings.Addspace(Settings, 1)
@@ -328,13 +330,22 @@ class Game:
         if action == "0":
             self.attak(self, monster)
         elif action == "1":
-            self.specialSkill(self, monster)
+            if self.useSpe == 0:
+                self.specialSkill(self, monster)
+            else:
+                self.badEntry(self, monster)
         elif action == "2":
             self.protect(self, monster)
         elif action == "3":
             self.escape(self, monster)
         else:
             self.showActions(self, self.me, monster)
+
+    def badEntry(self, monster):
+        Settings.Addspace(Settings, 2)
+        print('Bad entry')
+        Settings.Addspace(Settings, 2)
+        self.showActions(self, self.me, monster)
 
     def validate(self, me, monster):
         self.showBattleInfo(self, monster)
@@ -362,17 +373,31 @@ class Game:
         self.ennemyAction(self, monster)
 
     def specialSkill(self, monster):
-        print(json.dumps(self.me.spe, indent=4))
-        # Exemple output
-        # {
-        #     "name": "Hack",
-        #     "target": "monster",
-        #     "effect": {
-        #         "focus": "def",
-        #         "alterate": "-",
-        #         "value": "70"
-        #     }
-        # }
+        speName = self.me.spe['name']
+        speTarget = self.me.spe['target']
+        speEffect = self.me.spe['effect']
+        speFocus = speEffect['focus']
+        speAlt = speEffect['alterate']
+        speValue = speEffect['value']
+
+        if speTarget == 'self':
+            target = self.me
+        else:
+            target = monster
+
+        if speFocus == 'atk':
+            spe = Settings.calcSpeAtk(Settings, target, speAlt, speValue)
+        elif speFocus == 'def':
+            spe = Settings.calcSpeDef(Settings, target, speAlt, speValue)
+        elif speFocus == 'acr':
+            spe = Settings.calcSpeAcr(Settings, target, speAlt, speValue)
+        elif speFocus == 'hp':
+            spe = Settings.calcSpeHp(Settings, target, speAlt, speValue)
+            self.me.hp = spe
+            self.useSpe += 1
+            Settings.Addspace(Settings, 2)
+            print('Your hp increase by ' + Fore.GREEN + str(speValue) + Fore.RESET)
+            self.ennemyAction(self, monster)
 
     
     def escape(self, monster):
