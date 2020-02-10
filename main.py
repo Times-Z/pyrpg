@@ -9,98 +9,34 @@ import random
 from colorama import Fore, Back, Style
 
 # My classes
+from classes.Printator import Printator
+from classes.Saveator import Saveator
 from settings.Settings import Settings
-from classes.Monster import Monster
-from classes.Class import Rogue, Warrior, Gunner, Developer, Admin
+from classes.char.Monster import Monster
+from classes.char.Class import Rogue, Warrior, Gunner, Developer, Admin
 
 
 class Game:
 
+    # use ?
     classes = Settings.loadClass(Settings)
-    charName = None
-    charClass = None
-    me = None
-    charLevel = 1
-    charExp = 0
-    score = 0
+    # In saveator ?
+    # charName = None
+    # charClass = None
+    # me = None
+    # charLevel = 1
+    # charExp = 0
+    # score = 0
     turn = 1
     useSpe = 0
 
     def __init__(self):
-        print(Fore.GREEN + "R" + Fore.YELLOW + "py")
-        print(Fore.LIGHTGREEN_EX + Style.BRIGHT + "The python game" + Fore.RESET)
-        self.loading(0, 20, "")
-        self.getSave(self)
-
-    def getSave(self):
-        if os.path.isfile("save/save.json"):
-            save = Settings.loadSave()
-            print("Save file found for :")
-            print(
-                save["charName"]
-                + " "
-                + self.classes[int(save["charClassId"])]["name"]
-                + " level "
-                + str(save["charLevel"])
-            )
-            print("Continue with this game ? y/n")
-            game = input("> ")
-            if game == "y":
-                self.charName = save["charName"]
-                self.charClass = save["charClassId"]
-                self.charLevel = save["charLevel"]
-                self.charExp = save["charExp"]
-                self.score = save["score"]
-                if self.charClass == 0:
-                    self.me = Rogue()
-                elif self.charClass == 1:
-                    self.me = Warrior()
-                elif self.charClass == 2:
-                    self.me = Gunner()
-                elif self.charClass == 3:
-                    self.me = Developer()
-                elif self.charClass == 4:
-                    self.me = Admin()
-                self.showInformation(self)
-            else:
-                self.choseName(self)
+        Printator.__init__(Printator)
+        Printator.loading(0, 20)
+        if Saveator.__init__(Saveator) == True:
+            self.showInformation(self)
         else:
             self.choseName(self)
-
-    def loading(valmin, valmax, mess):
-        os.system('setterm -cursor off')
-        begin = "["
-        close = "]"
-        bar = [
-            " =     ",
-            "  =    ",
-            "   =   ",
-            "    =  ",
-            "     = ",
-            "      =",
-            "     = ",
-            "    =  ",
-            "   =   ",
-            "  =    ",
-        ]
-        while valmin != valmax:
-            print(
-                Fore.WHITE
-                + begin
-                + Fore.RED
-                + bar[valmin % len(bar)]
-                + Fore.WHITE
-                + close,
-                end="\r",
-            )
-            time.sleep(0.1)
-            valmin += 1
-        else:
-            if mess != "":
-                print(Fore.GREEN + mess + Style.RESET_ALL)
-            else:
-                print(Fore.GREEN + "                        " + Style.RESET_ALL)
-        os.system('setterm -cursor on')
 
     def confirm(self, param, string):
         confirm = input(
