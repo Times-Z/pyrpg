@@ -62,3 +62,38 @@ class Printator():
         )
         print("Continue with this game ? y/n")
         return True
+
+    def choseName():
+        Settings.Addspace(Settings, 2)
+        print("- New game -")
+        Settings.Addspace(Settings, 2)
+        print("Choose your name : ")
+        return True
+
+    def confirm(param, string):
+        confirm = input(
+            'Do you really want "'
+            + Fore.RED
+            + "%s" % param
+            + Fore.RESET
+            + '"'
+            + " %s ? y/n " % string
+        )
+        if confirm == "y":
+            return True
+        elif confirm == "n":
+            return False
+        else:
+            return False
+
+    def classChose(i, classes):
+        print(
+            str(i)
+            + " -> "
+            + Fore.GREEN
+            + classes[i]["name"]
+            + " - Special spell : "
+            + classes[i]["spe"]["name"]
+            + Fore.RESET
+        )
+        return True

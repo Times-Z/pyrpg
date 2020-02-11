@@ -36,7 +36,7 @@ class Game:
         if Saveator.__init__(Saveator) == True:
             self.showInformation(self)
         else:
-            self.choseName(self)
+            Saveator.choseName(Saveator)
 
     def confirm(self, param, string):
         confirm = input(
@@ -54,66 +54,11 @@ class Game:
         else:
             return False
 
-    def choseName(self):
-        Settings.Addspace(Settings, 2)
-        print("- New game -")
-        Settings.Addspace(Settings, 2)
-        print("Choose your name : ")
-        name = input("> ")
-        confirm = self.confirm(self, name, "as name")
-        if confirm == True:
-            self.charName = name
-            print("Your name is " + Fore.GREEN + "%s" % self.charName + Fore.RESET)
-            self.choseClasse(self)
-        else:
-            self.choseName(self)
-
-    def choseClasse(self):
-        Settings.Addspace(Settings, 4)
-        for i in range(len(self.classes)):
-            print(
-                str(i)
-                + " -> "
-                + Fore.GREEN
-                + self.classes[i]["name"]
-                + " - Special spell : "
-                + self.classes[i]["spe"]["name"]
-                + Fore.RESET
-            )
-        Settings.Addspace(Settings, 2)
-        print("Choose your class : ")
-        classChose = input("> ")
-
-        if (
-            classChose == "0"
-            or classChose == "1"
-            or classChose == "2"
-            or classChose == "3"
-            or classChose == "4"
-        ):
-            confirm = self.confirm(self, self.classes[int(classChose)]["name"], "")
-            if confirm == True:
-                self.charClass = int(classChose)
-                if self.charClass == 0:
-                    self.me = Rogue()
-                elif self.charClass == 1:
-                    self.me = Warrior()
-                elif self.charClass == 2:
-                    self.me = Gunner()
-                elif self.charClass == 3:
-                    self.me = Developer()
-                elif self.charClass == 4:
-                    self.me = Admin()
-                self.showInformation(self)
-            else:
-                self.choseClasse(self)
-        else:
-            self.choseClasse(self)
-
     def showInformation(self):
-        Settings.Addspace(Settings, 100)
-        Settings.showMainTitle(Settings, self.charName, self.charClass, self.charLevel)
-        self.showMainMenu(self)
+        print('Here')
+        # Settings.Addspace(Settings, 100)
+        # Settings.showMainTitle(Settings, self.charName, self.charClass, self.charLevel)
+        # self.showMainMenu(self)
 
     def showMainMenu(self):
         self.updateStats(self, self.me, self.charLevel)
