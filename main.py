@@ -14,20 +14,13 @@ from classes.engine.Saveator import Saveator
 from classes.engine.Fightator import Fightator
 from settings.Settings import Settings
 from classes.char.Monster import Monster
-from classes.char.Class import Rogue, Warrior, Gunner, Developer, Admin
+# from classes.char.Class import Rogue, Warrior, Gunner, Developer, Admin
+from classes.char.Character import Character
 
 
 class Game():
 
-    # use ?
     classes = Settings.loadClass(Settings)
-    # In saveator ?
-    # charName = None
-    # charClass = None
-    # me = None
-    # charLevel = 1
-    # charExp = 0
-    # score = 0
     turn = 1
     useSpe = 0
 
