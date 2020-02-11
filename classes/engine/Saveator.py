@@ -3,7 +3,6 @@ import os
 import json
 from classes.engine.Printator import Printator
 from settings.Settings import Settings
-# from classes.char.Class import Rogue, Warrior, Gunner, Developer, Admin
 from classes.char.Character import Character
 from colorama import Fore, Style, Back
 
@@ -16,6 +15,7 @@ class Saveator():
     charExp = False
     charClassId = False
     charClass = False
+    score = 0
 
     def __init__(self):
         if os.path.isfile("save/save.json"):
@@ -60,21 +60,12 @@ class Saveator():
             or classChose == "2"
             or classChose == "3"
             or classChose == "4"
-            ):
+        ):
             confirm = Printator.confirm(
                 self.classes[int(classChose)]["name"], "")
             if confirm == True:
                 self.charClass = int(classChose)
-                if self.charClass == 0:
-                    self.me = Rogue()
-                elif self.charClass == 1:
-                    self.me = Warrior()
-                elif self.charClass == 2:
-                    self.me = Gunner()
-                elif self.charClass == 3:
-                    self.me = Developer()
-                elif self.charClass == 4:
-                    self.me = Admin()
+                self.me = Character.__init__(Character, self.charClass)
                 return True
             else:
                 self.choseClass(self)
@@ -91,3 +82,29 @@ class Saveator():
         self.me.maxHp += int(addHp)
         self.me.atk += int(addAtk)
         return True
+
+    def save(self):
+        if os.path.exists("save/save.json"):
+            save = Settings.loadSave()
+            action = Printator.saveFound(Printator, save, 1)
+            if action == True:
+                os.remove("save/save.json")
+                self.save(self)
+            else:
+                Printator.showMainMenu(Printator, True)
+        else:
+            file = open("save/save.json", "a")
+            json_data = {
+                "charName": "{0}".format(self.charName),
+                "charClassId": self.charClass,
+                "charClass": self.classes[self.charClass],
+                "charLevel": self.charLevel,
+                "charExp": self.charExp,
+                "score": self.score,
+            }
+            json.dump(json_data, fp=file, indent=4, sort_keys=False)
+            file.close()
+            Settings.Addspace(Settings, 20)
+            Printator.saved()
+            Settings.Addspace(Settings, 2)
+            Printator.showMainMenu(Printator)
