@@ -56,6 +56,7 @@ class Saveator():
         Settings.Addspace(Settings, 2)
         print("Choose your class : ")
         classChose = input("> ")
+        # HERE
          if (
               classChose == "0"
               or classChose == "1"
