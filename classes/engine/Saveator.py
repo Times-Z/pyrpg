@@ -3,7 +3,8 @@ import os
 import json
 from classes.engine.Printator import Printator
 from settings.Settings import Settings
-from classes.char.Class import Rogue, Warrior, Gunner, Developer, Admin
+# from classes.char.Class import Rogue, Warrior, Gunner, Developer, Admin
+from classes.char.Character import Character
 from colorama import Fore, Style, Back
 
 
@@ -27,16 +28,7 @@ class Saveator():
                 self.charLevel = save["charLevel"]
                 self.charExp = save["charExp"]
                 self.score = save["score"]
-                if self.charClass == 0:
-                    self.me = Rogue()
-                elif self.charClass == 1:
-                    self.me = Warrior()
-                elif self.charClass == 2:
-                    self.me = Gunner()
-                elif self.charClass == 3:
-                    self.me = Developer()
-                elif self.charClass == 4:
-                    self.me = Admin()
+                self.me = Character.__init__(Character, self.charClass)
                 return True
             else:
                 return False
