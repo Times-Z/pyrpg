@@ -3,8 +3,9 @@ import os
 import time
 from colorama import Fore, Back, Style
 from settings.Settings import Settings
+from classes.engine.Fightator import Fightator
 
-
+# Only print & choice class
 class Printator():
 
     classes = Settings.loadClass(Settings)
@@ -97,3 +98,61 @@ class Printator():
             + Fore.RESET
         )
         return True
+
+    def showInformations():
+        Settings.Addspace(Settings, 10)
+        return True
+
+    def showMainTitle(name, me, level):
+        print('-------------------------------------------')
+        print('|                                         |')
+        print('| RPY   --   THE PYTHON ROLE PLAYING GAME |')
+        print('|                                         |')
+        print('-------------------------------------------')
+        Settings.Addspace(Settings, 2)
+        print('Name  : ' + name)
+        print('Class : ' + me.name)
+        print('Level : ' + str(level))
+        Settings.Addspace(Settings, 2)
+        return True
+    
+    def showMainMenu(self):
+        print("------------")
+        print("| MAIN MENU |")
+        print("------------")
+        Settings.Addspace(Settings, 2)
+        for i in range(len(Settings.mainMenu())):
+            print(str(i) + " -> " + Settings.mainMenu()[i])
+        Settings.Addspace(Settings, 2)
+
+        action = input("> ")
+
+        if action == "0":
+            return 0
+        elif action == "1":
+            return 1
+        elif action == "2":
+            return 2
+        elif action == "3":
+            return 3
+        elif action == "4":
+            exit
+        else:
+            Settings.Addspace(Settings, 2)
+            self.showMainMenu(self)
+
+    def showMenuOption():
+        Settings.Addspace(Settings, 20)
+        print("-----------")
+        print("| OPTIONS |")
+        print("-----------")
+        options = Settings.options()
+        for i in range(len(options)):
+            print(str(i) + " -> " + options[i])
+        action = input("> ")
+
+        if action == "0":
+            self.removeSaveFile(self)
+        elif action == "1":
+            Settings.Addspace(Settings, 20)
+            return self.showMainMenu(self)

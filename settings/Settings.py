@@ -1,3 +1,4 @@
+import sys
 import json
 
 
@@ -34,6 +35,9 @@ class Settings():
     protect = 0
     lastAtk = 0
 
+    def resize():
+        sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=30, cols=50))
+
     def debug(*values):
         return print(values)
 
@@ -52,16 +56,16 @@ class Settings():
             print('')
         return
 
-    def showMainTitle(self, name, charClass, level):
-        print('-------------------------------------------')
-        print('| RPY GAME - THE PYTHON ROLE PLAYING GAME |')
-        print('| _______________________________________ |')
-        self.Addspace(self, 2)
-        print('Name  : ' + name)
-        print('Class : ' +
-              self.loadClass(self)[int(charClass)]['name'])
-        print('Level : ' + str(level))
-        self.Addspace(self, 2)
+    # def showMainTitle(self, name, charClass, level):
+    #     print('-------------------------------------------')
+    #     print('| RPY GAME - THE PYTHON ROLE PLAYING GAME |')
+    #     print('| _______________________________________ |')
+    #     self.Addspace(self, 2)
+    #     print('Name  : ' + name)
+    #     print('Class : ' +
+    #           self.loadClass(self)[int(charClass)]['name'])
+    #     print('Level : ' + str(level))
+    #     self.Addspace(self, 2)
 
     def mainMenu():
         menu = [

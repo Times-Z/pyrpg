@@ -9,14 +9,15 @@ import random
 from colorama import Fore, Back, Style
 
 # My classes
-from classes.Printator import Printator
-from classes.Saveator import Saveator
+from classes.engine.Printator import Printator
+from classes.engine.Saveator import Saveator
+from classes.engine.Fightator import Fightator
 from settings.Settings import Settings
 from classes.char.Monster import Monster
 from classes.char.Class import Rogue, Warrior, Gunner, Developer, Admin
 
 
-class Game:
+class Game():
 
     # use ?
     classes = Settings.loadClass(Settings)
@@ -31,68 +32,30 @@ class Game:
     useSpe = 0
 
     def __init__(self):
+        Settings.resize()
         Printator.__init__(Printator)
         Printator.loading(0, 20)
         if Saveator.__init__(Saveator) == True:
             self.showInformation(self)
         else:
             Saveator.choseName(Saveator)
-
-    def confirm(self, param, string):
-        confirm = input(
-            'Do you really want "'
-            + Fore.RED
-            + "%s" % param
-            + Fore.RESET
-            + '"'
-            + " %s ? y/n " % string
-        )
-        if confirm == "y":
-            return True
-        elif confirm == "n":
-            return False
-        else:
-            return False
+            Saveator.choseClass(Saveator)
+            self.showInformation(self)
 
     def showInformation(self):
-        print('Here')
-        # Settings.Addspace(Settings, 100)
-        # Settings.showMainTitle(Settings, self.charName, self.charClass, self.charLevel)
-        # self.showMainMenu(self)
+        Printator.showInformations()
+        Printator.showMainTitle(Saveator.charName, Saveator.me, Saveator.charLevel)
+        Saveator.updateStats(Saveator)
+        choice = Printator.showMainMenu(Printator)
+        if choice == 0:
+            Fightator.quickBattle()
+        elif choice == 1:
+            print('CAMPAGN')
+        elif choice == 2:
+            Printator.showMenuOption()
+        elif choice == 3:
+            print('SAVE')
 
-    def showMainMenu(self):
-        self.updateStats(self, self.me, self.charLevel)
-        print("------------")
-        print("| MAIN MENU |")
-        print("------------")
-        Settings.Addspace(Settings, 2)
-        for i in range(len(Settings.mainMenu())):
-            print(str(i) + " -> " + Settings.mainMenu()[i])
-        Settings.Addspace(Settings, 2)
-        action = input("> ")
-
-        if action == "0":
-            self.quickBattle(self)
-        elif action == "1":
-            print("CAMPAGNE")
-        elif action == "2":
-            self.showOptionMenu(self)
-        elif action == "3":
-            self.save(self)
-        elif action == "4":
-            exit
-        else:
-            self.showMainMenu(self)
-
-    def updateStats(self, obj, level):
-        with open('settings/levels.json') as jsonLevel:
-            levels = json.load(jsonLevel)
-        key = level - 1
-        addHp = levels[key]['hp']
-        addAtk = levels[key]['atk']
-        self.me.hp += int(addHp)
-        self.me.maxHp += int(addHp)
-        self.me.atk += int(addAtk)
 
     def showOptionMenu(self):
         Settings.Addspace(Settings, 100)

@@ -7,7 +7,9 @@ class Class:
         with open("settings/classes.json", "r") as f:
             self.charClass = json.load(f)
 
-
+# Cree une class unique pour chaque perso
+# construct nom de class
+# 
 class Rogue(Class):
     def __init__(self):
         self.id = 0
