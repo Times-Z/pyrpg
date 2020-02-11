@@ -5,9 +5,11 @@ import json
 class Character():
     def __init__(self, charType):
         if charType == 'monster':
-            self.monster(self, charType)
+            monster =self.monster(self, charType)
+            return monster
         else:
-            self.character(self, charType)
+            perso = self.character(self, charType)
+            return perso
 
     def character(self, charType):
         with open("settings/classes.json", "r") as f:
@@ -21,7 +23,7 @@ class Character():
         self.defc = this['def']
         self.acr = this['acr']
         self.spe = this['spe']
-        return True
+        return self
 
     def monster(self, monster):
         with open('settings/monsters.json') as f:
@@ -34,5 +36,5 @@ class Character():
         self.acr = random.randint(monster['minAcr'], monster['maxAcr'])
         self.defc = monster['def']
         self.xp = random.randint(monster['expMin'], monster['expMax'])
-        return True
+        return self
         # test = self.spell(monster['spel'])
