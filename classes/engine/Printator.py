@@ -52,7 +52,7 @@ class Printator():
         os.system('setterm -cursor on')
         return True
 
-    def saveFound(self, save):
+    def saveFound(self, save, *action):
         print("Save file found for :")
         print(
             save["charName"]
@@ -61,7 +61,19 @@ class Printator():
             + " level "
             + str(save["charLevel"])
         )
-        print("Continue with this game ? y/n")
+        if action:
+            print("This action will be replace the save file with your actual game")
+            action = input("Continue ? y/n ")
+            if action == 'y':
+                return True
+            else: 
+                return False
+        else:
+            print("Continue with this game ? y/n")
+            return True
+
+    def saved():
+        print(Fore.GREEN + "Game saved" + Fore.RESET)
         return True
 
     def choseName():
@@ -116,7 +128,9 @@ class Printator():
         Settings.Addspace(Settings, 2)
         return True
     
-    def showMainMenu(self):
+    def showMainMenu(self, *space):
+        if space:
+            Settings.Addspace(Settings, 20)
         print("------------")
         print("| MAIN MENU |")
         print("------------")
