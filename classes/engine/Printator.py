@@ -73,7 +73,9 @@ class Printator():
             return True
 
     def saved():
+        Settings.Addspace(Settings, 20)
         print(Fore.GREEN + "Game saved" + Fore.RESET)
+        Settings.Addspace(Settings, 2)
         return True
 
     def choseName():
