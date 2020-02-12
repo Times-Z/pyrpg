@@ -3,9 +3,10 @@ import os
 import time
 from colorama import Fore, Back, Style
 from settings.Settings import Settings
-from classes.engine.Fightator import Fightator
 
 # Only print & choice class
+
+
 class Printator():
 
     classes = Settings.loadClass(Settings)
@@ -14,9 +15,8 @@ class Printator():
         print(Fore.GREEN + "R" + Fore.YELLOW + "py")
         print(Fore.LIGHTGREEN_EX + Style.BRIGHT +
               "The python game" + Fore.RESET)
-        return True
 
-    def loading(valmin, valmax, *mess):
+    def loading(valmin, valmax, mess = ''):
         os.system('setterm -cursor off')
         begin = "["
         close = "]"
@@ -45,7 +45,7 @@ class Printator():
             time.sleep(0.1)
             valmin += 1
         else:
-            if mess:
+            if mess != '':
                 print(Fore.GREEN + mess + Style.RESET_ALL)
             else:
                 print(Fore.GREEN + "                        " + Style.RESET_ALL)
@@ -66,7 +66,7 @@ class Printator():
             action = input("Continue ? y/n ")
             if action == 'y':
                 return True
-            else: 
+            else:
                 return False
         else:
             print("Continue with this game ? y/n")
@@ -129,9 +129,9 @@ class Printator():
         print('Level : ' + str(level))
         Settings.Addspace(Settings, 2)
         return True
-    
-    def showMainMenu(self, *space):
-        if space:
+
+    def showMainMenu(self, space = False):
+        if space != False:
             Settings.Addspace(Settings, 20)
         print("------------")
         print("| MAIN MENU |")
@@ -173,7 +173,8 @@ class Printator():
             return 99
 
     def removeSave():
-        print(Fore.RED + "/!\ " + Fore.RESET + " WARNING " + Fore.RED + " /!\ ")
+        print(Fore.RED + "/!\ " + Fore.RESET +
+              " WARNING " + Fore.RED + " /!\ ")
         print(
             Fore.RESET
             + "This action will be "
@@ -188,6 +189,70 @@ class Printator():
         else:
             return False
 
-    def success(string):
+    def success(string, space = 0):
+        if space != 0:
+            Settings.Addspace(Settings, space)
         print(string)
+        if space != 0:
+            Settings.Addspace(Settings, space)
         return True
+
+    def battleInfo(turn, me, monster):
+        Settings.Addspace(Settings, 2)
+        print('Turn : ' + str(turn))
+        Settings.Addspace(Settings, 2)
+        print("---------------------------------------------")
+        Settings.Addspace(Settings, 2)
+        print("You : ")
+        print(
+            "Hp : {0} / {1} | atk : {2} | def : {3} | acr : {4}".format(
+                me.hp, me.maxHp, me.atk, me.defc, me.acr
+            )
+        )
+        Settings.Addspace(Settings, 2)
+        print("---------------------------------------------")
+        Settings.Addspace(Settings, 2)
+        print(monster.name + " :")
+        print(
+            "Hp : {0} / {1} | atk : {2} | def : {3} | acr : {4}".format(
+                monster.hp, monster.maxHp, monster.atk, monster.defc, monster.acr
+            )
+        )
+        Settings.Addspace(Settings, 2)
+        print("---------------------------------------------")
+        Settings.Addspace(Settings, 2)
+        return True
+
+    def showBattleAction(useSpe, me, monster):
+        print("0 -> Attak " + monster.name)
+        if useSpe == 0:
+            print("1 -> Special : %s " % me.spe['name'])
+        print("2 -> Defend (%i %%)" % me.defc)
+        print("3 -> Escape")
+        Settings.Addspace(Settings, 1)
+        action = input("> ")
+        if action == "0":
+            return 'attak'
+        elif action == "1":
+            if useSpe == 0:
+                return 'spe'
+            else:
+                Settings.Addspace(Settings, 1)
+                Printator.success('Bad entry')
+                Settings.Addspace(Settings, 1)
+                return False
+        elif action == "2":
+            return 'protect'
+        elif action == "3":
+            return 'escape'
+        else:
+            return False
+
+    def attak(atk, target):
+        Settings.Addspace(Settings, 2)
+        print("Hit ! You hurt " + target.name)
+        print("Decrease hp from " + str(target.maxHp) + " to " + str(target.hp))
+        print(Fore.RED + " - " + str(atk) + " hp" + Fore.RESET)
+        return True
+
+    
