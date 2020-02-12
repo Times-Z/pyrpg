@@ -10,6 +10,7 @@ from colorama import Fore, Style, Back
 class Saveator():
 
     classes = Settings.loadClass(Settings)
+    me = False
     charName = False
     charLevel = 1
     charExp = False
@@ -28,7 +29,7 @@ class Saveator():
                 self.charLevel = save["charLevel"]
                 self.charExp = save["charExp"]
                 self.score = save["score"]
-                self.me = Character.__init__(Character, self.charClass)
+                self.me = Character(self.charClass)
                 return True
             else:
                 return False
