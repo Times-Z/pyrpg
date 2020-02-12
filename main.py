@@ -54,78 +54,9 @@ class Game():
             else:
                 self.mainMenu(self)
         elif choice == 3:
-            Saveator.save(Saveator)
-
-
-    # def showOptionMenu(self):
-    #     Settings.Addspace(Settings, 100)
-    #     print("-----------")
-    #     print("| OPTIONS |")
-    #     print("-----------")
-    #     options = Settings.options()
-    #     for i in range(len(options)):
-    #         print(str(i) + " -> " + options[i])
-    #     action = input("> ")
-
-    #     if action == "0":
-    #         self.removeSaveFile(self)
-    #     elif action == "1":
-    #         Settings.Addspace(Settings, 100)
-    #         return self.showMainMenu(self)
-
-    # def removeSaveFile(self):
-        # print(Fore.RED + "/!\ " + Fore.RESET + " WARNING " + Fore.RED + " /!\ ")
-        # print(
-        #     Fore.RESET
-        #     + "This action will be "
-        #     + Fore.RED
-        #     + "remove"
-        #     + Fore.RESET
-        #     + " the save file"
-        # )
-        # confirm = input("Are you sure ? y/n ")
-        # if confirm == "y":
-        #     if os.path.exists("save/save.json"):
-        #         os.remove("save/save.json")
-        #         print("removing save file success")
-        #         Settings.Addspace(Settings, 5)
-        #         self.showMainMenu(self)
-        #     else:
-        #         print("No save file exist")
-        #         self.showOptionMenu(self)
-        # else:
-        #     self.showOptionMenu(self)
-
-    # def save(self):
-    #     if os.path.exists("save/save.json"):
-    #         print("A save file already exist :")
-    #         save = Settings.loadSave()
-    #         print(save["charName"] + " level " + str(save["charLevel"]))
-    #         print("This action will be replace the save file with your actual game")
-    #         action = input("Continue ? y/n ")
-    #         if action == "y":
-    #             os.remove("save/save.json")
-    #             self.save(self)
-    #         else:
-    #             Settings.Addspace(Settings, 100)
-    #             self.showMainMenu(self)
-
-    #     else:
-    #         file = open("save/save.json", "a")
-    #         json_data = {
-    #             "charName": "{0}".format(self.charName),
-    #             "charClassId": self.charClass,
-    #             "charClass": self.classes[self.charClass],
-    #             "charLevel": self.charLevel,
-    #             "charExp": self.charExp,
-    #             "score": self.score,
-    #         }
-    #         json.dump(json_data, fp=file, indent=4, sort_keys=False)
-    #         file.close()
-    #         Settings.Addspace(Settings, 100)
-    #         print(Fore.GREEN + "Game saved" + Fore.RESET)
-    #         Settings.Addspace(Settings, 2)
-    #         self.showMainMenu(self)
+            save = Saveator.save(Saveator)
+            if save != True:
+                self.mainMenu(self)
 
     def createMonster(self):
         monster = Monster()
