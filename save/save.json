@@ -1,0 +1,23 @@
+{
+    "charName": "Administratueur",
+    "charClassId": 4,
+    "charClass": {
+        "name": "Admin",
+        "hp": 2000000,
+        "atk": 100000,
+        "def": 200,
+        "acr": 100,
+        "spe": {
+            "name": "God mod",
+            "target": "self",
+            "effect": {
+                "focus": "hp",
+                "alterate": "+",
+                "value": "99999999999999999999"
+            }
+        }
+    },
+    "charLevel": 1,
+    "charExp": false,
+    "score": 0
+}
