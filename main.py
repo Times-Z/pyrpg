@@ -39,55 +39,62 @@ class Game():
         Printator.showInformations()
         Printator.showMainTitle(Saveator.charName, Saveator.me, Saveator.charLevel)
         Saveator.updateStats(Saveator)
+        self.mainMenu(self)
+
+    def mainMenu(self):
         choice = Printator.showMainMenu(Printator)
         if choice == 0:
             Fightator.quickBattle()
         elif choice == 1:
             print('CAMPAGN')
         elif choice == 2:
-            Printator.showMenuOption()
+            option = Printator.showMenuOption()
+            if option == 0:
+                Saveator.removeSave()
+            else:
+                self.mainMenu(self)
         elif choice == 3:
             Saveator.save(Saveator)
 
 
-    def showOptionMenu(self):
-        Settings.Addspace(Settings, 100)
-        print("-----------")
-        print("| OPTIONS |")
-        print("-----------")
-        options = Settings.options()
-        for i in range(len(options)):
-            print(str(i) + " -> " + options[i])
-        action = input("> ")
+    # def showOptionMenu(self):
+    #     Settings.Addspace(Settings, 100)
+    #     print("-----------")
+    #     print("| OPTIONS |")
+    #     print("-----------")
+    #     options = Settings.options()
+    #     for i in range(len(options)):
+    #         print(str(i) + " -> " + options[i])
+    #     action = input("> ")
 
-        if action == "0":
-            self.removeSaveFile(self)
-        elif action == "1":
-            Settings.Addspace(Settings, 100)
-            return self.showMainMenu(self)
+    #     if action == "0":
+    #         self.removeSaveFile(self)
+    #     elif action == "1":
+    #         Settings.Addspace(Settings, 100)
+    #         return self.showMainMenu(self)
 
-    def removeSaveFile(self):
-        print(Fore.RED + "/!\ " + Fore.RESET + " WARNING " + Fore.RED + " /!\ ")
-        print(
-            Fore.RESET
-            + "This action will be "
-            + Fore.RED
-            + "remove"
-            + Fore.RESET
-            + " the save file"
-        )
-        confirm = input("Are you sure ? y/n ")
-        if confirm == "y":
-            if os.path.exists("save/save.json"):
-                os.remove("save/save.json")
-                print("removing save file success")
-                Settings.Addspace(Settings, 5)
-                self.showMainMenu(self)
-            else:
-                print("No save file exist")
-                self.showOptionMenu(self)
-        else:
-            self.showOptionMenu(self)
+    # def removeSaveFile(self):
+        # print(Fore.RED + "/!\ " + Fore.RESET + " WARNING " + Fore.RED + " /!\ ")
+        # print(
+        #     Fore.RESET
+        #     + "This action will be "
+        #     + Fore.RED
+        #     + "remove"
+        #     + Fore.RESET
+        #     + " the save file"
+        # )
+        # confirm = input("Are you sure ? y/n ")
+        # if confirm == "y":
+        #     if os.path.exists("save/save.json"):
+        #         os.remove("save/save.json")
+        #         print("removing save file success")
+        #         Settings.Addspace(Settings, 5)
+        #         self.showMainMenu(self)
+        #     else:
+        #         print("No save file exist")
+        #         self.showOptionMenu(self)
+        # else:
+        #     self.showOptionMenu(self)
 
     # def save(self):
     #     if os.path.exists("save/save.json"):

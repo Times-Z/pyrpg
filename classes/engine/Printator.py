@@ -166,7 +166,26 @@ class Printator():
         action = input("> ")
 
         if action == "0":
-            self.removeSaveFile(self)
+            return 0
         elif action == "1":
-            Settings.Addspace(Settings, 20)
-            return self.showMainMenu(self)
+            return 99
+
+    def removeSave():
+        print(Fore.RED + "/!\ " + Fore.RESET + " WARNING " + Fore.RED + " /!\ ")
+        print(
+            Fore.RESET
+            + "This action will be "
+            + Fore.RED
+            + "remove"
+            + Fore.RESET
+            + " the save file"
+        )
+        confirm = input("Are you sure ? y/n ")
+        if confirm == 'y':
+            return True
+        else:
+            return False
+
+    def success(string):
+        print(string)
+        return True

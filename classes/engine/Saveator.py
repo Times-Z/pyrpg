@@ -108,3 +108,17 @@ class Saveator():
             Printator.saved()
             Settings.Addspace(Settings, 2)
             Printator.showMainMenu(Printator)
+
+    def removeSave():
+        remove = Printator.removeSave()
+        print(remove)
+        if remove == True:
+            if os.path.exists("save/save.json"):
+                os.remove("save/save.json")
+                Printator.showMainMenu(Printator)
+                Printator.success('removing save file success')
+            else:
+                Printator.showMenuOption()
+                Printator.success('No save file exist')
+        else:
+            Printator.showMainMenu(Printator)
