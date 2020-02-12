@@ -44,7 +44,7 @@ class Game():
     def mainMenu(self):
         choice = Printator.showMainMenu(Printator)
         if choice == 0:
-            Fightator.quickBattle()
+            Fightator.quickBattle(Fightator, Saveator.me)
         elif choice == 1:
             print('CAMPAGN')
         elif choice == 2:
