@@ -91,7 +91,10 @@ class Saveator():
                 os.remove("save/save.json")
                 self.save(self)
             else:
-                Printator.showMainMenu(Printator, True)
+                Settings.Addspace(Settings, 2)
+                Printator.success(Fore.RED + 'Aborted' + Fore.RESET)
+                Settings.Addspace(Settings, 2)
+                return False
         else:
             file = open("save/save.json", "a")
             json_data = {
@@ -104,10 +107,8 @@ class Saveator():
             }
             json.dump(json_data, fp=file, indent=4, sort_keys=False)
             file.close()
-            Settings.Addspace(Settings, 20)
             Printator.saved()
-            Settings.Addspace(Settings, 2)
-            Printator.showMainMenu(Printator)
+            return False
 
     def removeSave():
         remove = Printator.removeSave()
