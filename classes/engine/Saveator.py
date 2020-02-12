@@ -66,7 +66,7 @@ class Saveator():
                 self.classes[int(classChose)]["name"], "")
             if confirm == True:
                 self.charClass = int(classChose)
-                self.me = Character.__init__(Character, self.charClass)
+                self.me = Character(self.charClass)
                 return True
             else:
                 self.choseClass(self)
@@ -124,3 +124,13 @@ class Saveator():
                 Printator.success('No save file exist')
         else:
             Printator.showMainMenu(Printator)
+
+    def checkLevel(level, xp):
+        with open('settings/levels.json') as jsonLevel:
+            levels = json.load(jsonLevel)
+        key = level - 1
+        xpNeed = levels[key]['toUp']
+        if xp >= xpNeed:
+            return True
+        else:
+            return False
