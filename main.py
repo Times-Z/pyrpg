@@ -25,7 +25,7 @@ class Game():
         # Settings.resize()
         Printator.__init__(Printator)
         Printator.loading(0, 20)
-        if Saveator.__init__(Saveator) == True:
+        if Saveator.init(Saveator) == True:
             self.showInformation(self)
         else:
             Saveator.choseName(Saveator)
