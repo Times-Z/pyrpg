@@ -4,18 +4,11 @@ The python rpg
 
 ----------------------
 
-## How to play ?
-1. Clone the repository
-```bash
- git clone https://github.com/Crash-Zeus/pyrpg.git
-```
+## TO DO
 
-2. Launch `main.py` with the following command
-```bash
-python3 main.py
-```
+[X] Level adding stats
+[X] More levels stats json (out of range problem)
+[V] Fix negative atk 
 
-3. Play
 
-----
 More soon
