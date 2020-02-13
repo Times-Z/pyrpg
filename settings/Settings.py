@@ -72,10 +72,4 @@ class Settings():
             'Back'
         ]
         return options
-    
-    # def calcSpeAtk(self, target, speFocus, speAlt, speValue):
-    #     res = target.atk
 
-    def calcSpeHp(self, target, speAlt, speValue):
-        res = str(target.hp) + str(speAlt) + str(speValue)
-        return eval(res)
