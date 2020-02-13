@@ -25,11 +25,12 @@ class Saveator():
             loadsave = input("> ")
             if loadsave == "y":
                 self.charName = save["charName"]
-                self.charClass = save["charClassId"]
+                self.charClassId = save["charClassId"]
+                self.charClass = save["charClass"]
                 self.charLevel = save["charLevel"]
                 self.charExp = save["charExp"]
                 self.score = save["score"]
-                self.me = Character(self.charClass)
+                self.me = Character(self.charClassId)
                 return True
             else:
                 return False
