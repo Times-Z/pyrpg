@@ -250,9 +250,17 @@ class Printator():
 
     def attak(atk, target):
         Settings.Addspace(Settings, 2)
-        print("Hit ! You hurt " + target.name)
+        print("Hit ! Hurt " + target.name)
         print("Decrease hp from " + str(target.maxHp) + " to " + str(target.hp))
         print(Fore.RED + " - " + str(atk) + " hp" + Fore.RESET)
         return True
 
-    
+    def useSpell(caster, spell, focus, target, alt, power, perso = False):
+        Settings.Addspace(Settings, 2)
+        if perso == True:
+            print(caster + ' use "' + spell + '" on ' + caster + '!')
+        else:
+            print(caster.name + ' use "' + spell + '" on ' + target.name + '!')
+        print(Fore.YELLOW + alt + ' ' + str(power) + ' ' + focus + Fore.RESET)
+        Settings.Addspace(Settings, 2)
+        return True
