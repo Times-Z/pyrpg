@@ -12,11 +12,37 @@ class Printator():
     classes = Settings.loadClass(Settings)
 
     def __init__(self):
-        print(Fore.GREEN + "R" + Fore.YELLOW + "py")
-        print(Fore.LIGHTGREEN_EX + Style.BRIGHT +
-              "The python game" + Fore.RESET)
+        print("""
+            .=========================================.
+            |                                         |
+            |              .::::::::::.               |
+            |            .::``::::::::::.             |
+            |            :::..:::::::::::             |
+            |            ````````::::::::             |
+            |    .::::::::::::::::::::::: iiiiiii,    |
+            | .:::::::::::::::::::::::::: iiiiiiiii.  |
+            | ::::::::::::::::::::::::::: iiiiiiiiii  |
+            | ::::::::::::::::::::::::::: iiiiiiiiii  |
+            | :::::::::: ,,,,,,,,,,,,,,,,,iiiiiiiiii  |
+            | :::::::::: iiiiiiiiiiiiiiiiiiiiiiiiiii  |
+            | `::::::::: iiiiiiiiiiiiiiiiiiiiiiiiii`  |
+            |    `:::::: iiiiiiiiiiiiiiiiiiiiiii`     |
+            |            iiiiiiii,,,,,,,,             |
+            |            iiiiiiiiiii''iii             |
+            |            `iiiiiiiiii..ii`             |
+            |              `iiiiiiiiii`               |
+            |                                         |
+            |    ____        _   _                    |
+            |   |  _ \ _   _| |_| |__   ___  _ __     |
+            |   | |_) | | | | __| '_ \ / _ \| '_ \    |
+            |   |  __/| |_| | |_| | | | (_) | | | |   |
+            |   |_|    \__, |\__|_| |_|\___/|_| |_|   |
+            |          |___/                          |
+            |                                         |
+            '========================================='
+        """)
 
-    def loading(valmin, valmax, mess = ''):
+    def loading(valmin, valmax, mess=''):
         os.system('setterm -cursor off')
         begin = "["
         close = "]"
@@ -130,7 +156,7 @@ class Printator():
         Settings.Addspace(Settings, 2)
         return True
 
-    def showMainMenu(self, space = False):
+    def showMainMenu(self, space=False):
         if space != False:
             Settings.Addspace(Settings, 20)
         print("------------")
@@ -189,7 +215,7 @@ class Printator():
         else:
             return False
 
-    def success(string, space = 0):
+    def success(string, space=0):
         if space != 0:
             Settings.Addspace(Settings, space)
         print(string)
@@ -255,7 +281,7 @@ class Printator():
         print(Fore.RED + " - " + str(atk) + " hp" + Fore.RESET)
         return True
 
-    def useSpell(caster, spell, focus, target, alt, power, perso = False):
+    def useSpell(caster, spell, focus, target, alt, power, perso=False):
         Settings.Addspace(Settings, 2)
         if perso == True:
             print(caster + ' use "' + spell + '" on ' + caster + '!')

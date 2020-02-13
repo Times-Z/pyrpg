@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
 import time
 import random
 from colorama import Fore, Back, Style
@@ -9,6 +10,8 @@ from classes.engine.Saveator import Saveator
 from settings.Settings import Settings
 
 # Fight engine
+
+
 class Fightator():
 
     def init(self, me):
@@ -64,19 +67,27 @@ class Fightator():
 
     def attak(self, caster, target):
         if self.protect == 0:
-            res = target.hp - caster.atk
-            self.lastAtk = caster.atk
+            if caster.atk < 0:
+                res = target.hp - 0
+                self.lastAtk = 0
+            else:
+                res = target.hp - caster.atk
+                self.lastAtk = caster.atk
             self.protect = 0
         else:
             if self.protect >= 100:
                 atk = 0
+            elif self.protect < 0:
+                positif = abs(self.protect)
+                add = round(caster.atk * (int(self.protect) / 100))
+                atk = positif + add
             else:
                 atk = round(caster.atk * (int(self.protect) / 100))
             res = target.hp - atk
             self.lastAtk = atk
             self.protect = 0
         return int(res)
-    
+
     def protectAction(self, caster):
         self.protect = caster.defc
         return True
@@ -88,27 +99,35 @@ class Fightator():
         spellAlterate = caster.spe['effect']['alterate']
 
         if caster.type == 'monster':
-            spellPower = random.randint(caster.spe['effect']['minRange'], caster.spe['effect']['maxRange'])
+            spellPower = random.randint(
+                caster.spe['effect']['minRange'], caster.spe['effect']['maxRange'])
             if spellTarget == 'self':
-                Printator.useSpell(caster, spellName, spellFocus, caster, spellAlterate, spellPower)
+                Printator.useSpell(self.monster.name, spellName, spellFocus,
+                                   self.monster.name, spellAlterate, spellPower, True)
             else:
-                Printator.useSpell(caster, spellName, spellFocus, Saveator.charClass, spellAlterate, spellPower)
+                Printator.useSpell(caster, spellName, spellFocus,
+                                   Saveator.me, spellAlterate, spellPower)
         else:
             spellPower = caster.spe['effect']['value']
             if spellTarget == 'self':
-                Printator.useSpell(Saveator.charName, spellName, spellFocus, Saveator.charName, spellAlterate, spellPower, True)
+                Printator.useSpell(Saveator.charName, spellName, spellFocus,
+                                   Saveator.charName, spellAlterate, spellPower, True)
             else:
-                Printator.useSpell(caster, spellName, spellFocus, self.monster, spellAlterate, spellPower)
+                Printator.useSpell(caster, spellName, spellFocus,
+                                   self.monster, spellAlterate, spellPower)
             self.useSpe += 1
 
         if spellTarget == 'self':
             self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
             return True
         else:
-            self.calcSpell(self, self.monster, spellFocus, spellAlterate, spellPower)
+            self.calcSpell(self, self.monster, spellFocus,
+                           spellAlterate, spellPower)
             return True
-    
+
     def calcSpell(self, target, focus, alt, power):
+        if focus == 'def':
+            focus = 'defc'
         attr = getattr(target, focus)
         calc = str(attr) + str(alt) + str(power)
         spell = eval(calc)
@@ -154,7 +173,7 @@ class Fightator():
     def escape(self):
         Printator.success('Rolling dice...')
         Printator.loading(0, 5)
-        dice = random.randint(1,6)
+        dice = random.randint(1, 6)
         if dice == 6:
             Printator.success(Fore.GREEN + 'Escape success' + Fore.RESET, 2)
             return True
@@ -166,8 +185,10 @@ class Fightator():
         Saveator.charExp += self.monster.xp
         level = Saveator.checkLevel(Saveator.charLevel, Saveator.charExp)
         Settings.Addspace(Settings, 2)
-        Printator.success('Exp win : ' + Fore.GREEN + str(self.monster.xp) + Fore.RESET)
-        Printator.success('Total exp : ' + Fore.GREEN + str(Saveator.charExp) + Fore.RESET)
+        Printator.success('Exp win : ' + Fore.GREEN +
+                          str(self.monster.xp) + Fore.RESET)
+        Printator.success('Total exp : ' + Fore.GREEN +
+                          str(Saveator.charExp) + Fore.RESET)
         Settings.Addspace(Settings, 2)
         if level == True:
             Saveator.charLevel += 1
@@ -176,4 +197,6 @@ class Fightator():
         return 0
 
     def gameOver(self):
-        return True
+        Printator.success(Fore.RED + ' GAME OVER ! ' + Fore.RESET)
+        self.end = 1
+        sys.exit('Quit game, you die')
