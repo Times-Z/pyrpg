@@ -9,7 +9,7 @@
         "minAcr": 70,
         "maxAcr": 100,
         "def": 70,
-        "spel": {
+        "spell": {
             "name": "Great Spirit",
             "target": "self",
             "effect": {
@@ -32,7 +32,7 @@
         "minAcr": 60,
         "maxAcr": 80,
         "def": 20,
-        "spel": {
+        "spell": {
             "name": "Talk to Han Droid",
             "target": "player",
             "effect": {
@@ -55,7 +55,7 @@
         "minAcr": 50,
         "maxAcr": 70,
         "def": 13,
-        "spel": {
+        "spell": {
             "name": "Shlag call",
             "target": "self",
             "effect": {
