@@ -56,12 +56,6 @@ class Game():
             if save != True:
                 self.mainMenu(self)
 
-    def gameOver(self, monster):
-        print(monster.name + ' killed you')
-        print(Fore.RED + 'GAME OVER' + Fore.RESET)
-        Settings.Addspace(Settings, 4)
-        exit
-
 if __name__ == "__main__":
     try:
         Game.__init__(Game)
