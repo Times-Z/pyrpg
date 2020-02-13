@@ -6,9 +6,12 @@ The python rpg
 
 ## TO DO
 
-[X] Level adding stats
-[X] More levels stats json (out of range problem)
-[V] Fix negative atk 
+| Add               | bug           ||
+| -------------     |:-------------:| -----:|
+| Level adding stats|               | ✔️     |
+| Fix negative atk  |     ✔️         | ✔️    |
+| More levels stats json (out of range problem)  |          | ❌    |
+
 
 
 More soon
