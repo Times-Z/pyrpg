@@ -14,6 +14,7 @@ class Fightator():
     def init(self, me):
         self.end = 0
         self.me = me
+        self.me.hp = self.me.maxHp
         self.turn = 1
         self.useSpe = 0
         self.protect = 0
@@ -44,8 +45,19 @@ class Fightator():
             self.protectAction(self, self.me)
             self.cpuTurn(self)
         elif action == 'spe':
-            self.spell(self, self.me)
-            # self.cpuTurn(self)
+            if self.useSpe == 0:
+                self.spell(self, self.me)
+                self.cpuTurn(self)
+            else:
+                Printator.success('Bad entry', 2)
+                self.battleAction(self)
+        elif action == 'escape':
+            escape = self.escape(self)
+            if escape == True:
+                self.end = 1
+                return 0
+            else:
+                self.cpuTurn(self)
         elif action == False:
             Printator.success('Bad entry', 2)
             self.battleAction(self)
@@ -77,9 +89,36 @@ class Fightator():
 
         if caster.type == 'monster':
             spellPower = random.randint(caster.spe['effect']['minRange'], caster.spe['effect']['maxRange'])
+            if spellTarget == 'self':
+                Printator.useSpell(caster, spellName, spellFocus, caster, spellAlterate, spellPower)
+            else:
+                Printator.useSpell(caster, spellName, spellFocus, Saveator.charClass, spellAlterate, spellPower)
         else:
             spellPower = caster.spe['effect']['value']
-        # TODO
+            if spellTarget == 'self':
+                Printator.useSpell(Saveator.charName, spellName, spellFocus, Saveator.charName, spellAlterate, spellPower, True)
+            else:
+                Printator.useSpell(caster, spellName, spellFocus, self.monster, spellAlterate, spellPower)
+            self.useSpe += 1
+
+        if spellTarget == 'self':
+            self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
+            return True
+        else:
+            self.calcSpell(self, self.monster, spellFocus, spellAlterate, spellPower)
+            return True
+    
+    def calcSpell(self, target, focus, alt, power):
+        attr = getattr(target, focus)
+        calc = str(attr) + str(alt) + str(power)
+        spell = eval(calc)
+        if focus == 'hp':
+            if spell > target.maxHp:
+                spell = target.maxHp
+                Printator.success('Healing cannot exceed max HP', 1)
+                Printator.success(Fore.GREEN + 'Hp full' + Fore.RESET, 1)
+        setattr(target, focus, spell)
+        return True
 
     def cpuTurn(self):
         Printator.success(self.monster.name + ' playing...')
@@ -100,6 +139,7 @@ class Fightator():
         elif action == 3:
             if self.turn in Settings.validateTurns:
                 Printator.success(self.monster.name + ' use a special spell !')
+                self.spell(self, self.monster)
                 self.protect = 0
                 # TODO
             else:
@@ -110,6 +150,17 @@ class Fightator():
         self.turn += 1
         Printator.battleInfo(self.turn, self.me, self.monster)
         self.battleAction(self)
+
+    def escape(self):
+        Printator.success('Rolling dice...')
+        Printator.loading(0, 5)
+        dice = random.randint(1,6)
+        if dice == 6:
+            Printator.success(Fore.GREEN + 'Escape success' + Fore.RESET, 2)
+            return True
+        else:
+            Printator.success(Fore.RED + 'Escape failed' + Fore.RESET, 2)
+            return False
 
     def win(self):
         Saveator.charExp += self.monster.xp
