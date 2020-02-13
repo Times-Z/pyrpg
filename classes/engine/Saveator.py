@@ -18,7 +18,7 @@ class Saveator():
     charClass = False
     score = 0
 
-    def __init__(self):
+    def init(self):
         if os.path.isfile("save/save.json"):
             save = Settings.loadSave()
             Printator.saveFound(Printator, save)
