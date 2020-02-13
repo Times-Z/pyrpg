@@ -34,7 +34,8 @@ class Game():
 
     def showInformation(self):
         Printator.showInformations()
-        Printator.showMainTitle(Saveator.charName, Saveator.me, Saveator.charLevel)
+        Printator.showMainTitle(
+            Saveator.charName, Saveator.me, Saveator.charLevel)
         Saveator.updateStats(Saveator)
         self.mainMenu(self)
 
@@ -55,6 +56,7 @@ class Game():
             save = Saveator.save(Saveator)
             if save != True:
                 self.mainMenu(self)
+
 
 if __name__ == "__main__":
     try:
