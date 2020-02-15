@@ -223,6 +223,21 @@ class Printator():
             Settings.Addspace(Settings, space)
         return True
 
+    def health(maxHealth, health):
+        healthDashes = 20
+        dashConvert = int(maxHealth/healthDashes)
+        currentDashes = int(health/dashConvert)
+        remainingHealth = healthDashes - currentDashes
+        healthDisplay = '█' * currentDashes
+        remainingDisplay = ' ' * remainingHealth
+        percent = int((health/maxHealth)*100)
+        color = Fore.GREEN
+        if percent <= 60:
+            color = Fore.YELLOW
+        if percent <= 30:
+            color = Fore.RED
+        print("|" + color + healthDisplay + Fore.RESET + remainingDisplay + "| " + str(health) + ' / ' + str(maxHealth))
+
     def battleInfo(turn, me, monster):
         Settings.Addspace(Settings, 2)
         print('Turn : ' + str(turn))
@@ -230,18 +245,20 @@ class Printator():
         print("---------------------------------------------")
         Settings.Addspace(Settings, 2)
         print("You : ")
+        Printator.health(me.maxHp, me.hp)
         print(
-            "Hp : {0} / {1} | atk : {2} | def : {3} | acr : {4}".format(
-                me.hp, me.maxHp, me.atk, me.defc, me.acr
+            "atk : {0} | def : {1} | acr : {2}".format(
+                me.atk, me.defc, me.acr
             )
         )
         Settings.Addspace(Settings, 2)
         print("---------------------------------------------")
         Settings.Addspace(Settings, 2)
         print(monster.name + " :")
+        Printator.health(monster.maxHp, monster.hp)
         print(
-            "Hp : {0} / {1} | atk : {2} | def : {3} | acr : {4}".format(
-                monster.hp, monster.maxHp, monster.atk, monster.defc, monster.acr
+            "atk : {0} | def : {1} | acr : {2}".format(
+                monster.atk, monster.defc, monster.acr
             )
         )
         Settings.Addspace(Settings, 2)
@@ -277,7 +294,7 @@ class Printator():
     def attak(atk, target):
         Settings.Addspace(Settings, 2)
         print("Hit ! Hurt " + target.name)
-        print("Decrease hp from " + str(target.maxHp) + " to " + str(target.hp))
+        print("Decrease hp to " + str(target.hp))
         print(Fore.RED + " - " + str(atk) + " hp" + Fore.RESET)
         return True
 
