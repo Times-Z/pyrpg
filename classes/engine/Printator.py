@@ -230,7 +230,13 @@ class Printator():
         remainingHealth = healthDashes - currentDashes
         healthDisplay = '█' * currentDashes
         remainingDisplay = ' ' * remainingHealth
-        print("|" + healthDisplay + remainingDisplay + "| " + str(health) + ' / ' + str(maxHealth))
+        percent = int((health/maxHealth)*100)
+        color = Fore.GREEN
+        if percent <= 60:
+            color = Fore.YELLOW
+        if percent <= 30:
+            color = Fore.RED
+        print("|" + color + healthDisplay + Fore.RESET + remainingDisplay + "| " + str(health) + ' / ' + str(maxHealth))
 
     def battleInfo(turn, me, monster):
         Settings.Addspace(Settings, 2)
