@@ -56,6 +56,8 @@ class Game():
             save = Saveator.save(Saveator)
             if save != True:
                 self.mainMenu(self)
+        elif choice == 10:
+            self.mainMenu(self)
 
 
 if __name__ == "__main__":
