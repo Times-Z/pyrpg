@@ -272,6 +272,7 @@ class Printator():
             print("1 -> Special : %s " % me.spe['name'])
         print("2 -> Defend (%i %%)" % me.defc)
         print("3 -> Escape")
+        print("4 -> pass")
         Settings.Addspace(Settings, 1)
         action = input("> ")
         if action == "0":
@@ -288,6 +289,8 @@ class Printator():
             return 'protect'
         elif action == "3":
             return 'escape'
+        elif action == "4":
+            return 'pass'
         else:
             return False
 
