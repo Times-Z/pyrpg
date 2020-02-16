@@ -61,6 +61,8 @@ class Fightator():
                 return 0
             else:
                 self.cpuTurn(self)
+        elif action == 'pass':
+            self.cpuTurn(self)
         elif action == False:
             Printator.success('Bad entry', 2)
             self.battleAction(self)
@@ -117,13 +119,22 @@ class Fightator():
                                    self.monster, spellAlterate, spellPower)
             self.useSpe += 1
 
-        if spellTarget == 'self':
-            self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
-            return True
+        if caster.type == 'monster':
+            if spellTarget == 'self':
+                self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
+                return True
+            else:
+                self.calcSpell(self, self.me, spellFocus,
+                            spellAlterate, spellPower)
+                return True
         else:
-            self.calcSpell(self, self.monster, spellFocus,
-                           spellAlterate, spellPower)
-            return True
+            if spellTarget == 'self':
+                self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
+                return True
+            else:
+                self.calcSpell(self, self.monster, spellFocus,
+                            spellAlterate, spellPower)
+                return True
 
     def calcSpell(self, target, focus, alt, power):
         if focus == 'def':
