@@ -67,5 +67,28 @@
         },
         "expMin": 20,
         "expMax": 110
+    },
+    {
+        "id": 4,
+        "name": "Slagwraith",
+        "minHp": 90,
+        "maxHp": 150,
+        "minAtk": 2,
+        "maxAtk": 11,
+        "minAcr": 90,
+        "maxAcr": 100,
+        "def": 20,
+        "spell": {
+            "name": "Redemption",
+            "target": "self",
+            "effect": {
+                "focus": "def",
+                "alterate": "+",
+                "minRange": 4,
+                "maxRange": 10
+            }
+        },
+        "expMin": 10,
+        "expMax": 104
     }
 ]
