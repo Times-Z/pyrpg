@@ -180,8 +180,7 @@ class Printator():
         elif action == "4":
             exit
         else:
-            Settings.Addspace(Settings, 2)
-            self.showMainMenu(self)
+            return 10
 
     def showMenuOption():
         Settings.Addspace(Settings, 20)
@@ -239,11 +238,9 @@ class Printator():
         print("|" + color + healthDisplay + Fore.RESET + remainingDisplay + "| " + str(health) + ' / ' + str(maxHealth))
 
     def battleInfo(turn, me, monster):
-        Settings.Addspace(Settings, 2)
         print('Turn : ' + str(turn))
         Settings.Addspace(Settings, 2)
         print("---------------------------------------------")
-        Settings.Addspace(Settings, 2)
         print("You : ")
         Printator.health(me.maxHp, me.hp)
         print(
@@ -251,9 +248,7 @@ class Printator():
                 me.atk, me.defc, me.acr
             )
         )
-        Settings.Addspace(Settings, 2)
         print("---------------------------------------------")
-        Settings.Addspace(Settings, 2)
         print(monster.name + " :")
         Printator.health(monster.maxHp, monster.hp)
         print(
@@ -261,9 +256,8 @@ class Printator():
                 monster.atk, monster.defc, monster.acr
             )
         )
-        Settings.Addspace(Settings, 2)
         print("---------------------------------------------")
-        Settings.Addspace(Settings, 2)
+        Settings.Addspace(Settings, 1)
         return True
 
     def showBattleAction(useSpe, me, monster):
