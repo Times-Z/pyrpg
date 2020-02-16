@@ -203,6 +203,7 @@ class Fightator():
         Settings.Addspace(Settings, 2)
         if level == True:
             Saveator.charLevel += 1
+            Saveator.updateStats(Saveator)
             Printator.success(Fore.GREEN + 'Level up !' + Fore.RESET)
             Printator.success('Level : ' + str(Saveator.charLevel), 2)
         return 0
