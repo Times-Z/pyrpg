@@ -11,7 +11,12 @@ class Printator():
 
     classes = Settings.loadClass(Settings)
 
-    def __init__(self):
+    def resolution(col, row):
+        print('Recommended resolution of terminal is : ')
+        print(' ' + str(col) + ' X ' + str(row))
+        input('[press any key to continue]')
+
+    def init(self):
         print("""
             .=========================================.
             |                                         |
@@ -261,12 +266,12 @@ class Printator():
         return True
 
     def showBattleAction(useSpe, me, monster):
-        print("0 -> Attak " + monster.name)
+        print(" 0 -> Attak " + monster.name)
         if useSpe == 0:
-            print("1 -> Special : %s " % me.spe['name'])
-        print("2 -> Defend (%i %%)" % me.defc)
-        print("3 -> Escape")
-        print("4 -> pass")
+            print(" 1 -> Special : %s " % me.spe['name'])
+        print(" 2 -> Defend (%i %%)" % me.defc)
+        print(" 3 -> Escape")
+        print(" 4 -> pass")
         Settings.Addspace(Settings, 1)
         action = input("> ")
         if action == "0":
