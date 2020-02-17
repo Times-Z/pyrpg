@@ -87,6 +87,9 @@ class Fightator():
                 atk = round(caster.atk * (int(self.protect) / 100))
             res = target.hp - atk
             self.lastAtk = atk
+            if caster.atk < 0:
+                res = target.hp - 0
+                self.lastAtk = 0
             self.protect = 0
         return int(res)
 
