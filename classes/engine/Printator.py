@@ -14,7 +14,7 @@ class Printator():
     def resolution(col, row):
         print('Recommended resolution of terminal is : ')
         print(' ' + str(col) + ' X ' + str(row))
-        input('[press any key to continue]')
+        input('[press enter to continue]')
 
     def init(self):
         print("""
