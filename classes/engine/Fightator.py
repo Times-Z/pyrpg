@@ -31,6 +31,8 @@ class Fightator():
         self.battleAction(self)
         return 0
 
+    # Add lanbattle function
+
     def battleAction(self):
         action = Printator.showBattleAction(self.useSpe, self.me, self.monster)
         if action == 'attak':
