@@ -59,7 +59,7 @@ class Settings():
     def mainMenu():
         menu = [
             'Quick battle',
-            'Campagne',
+            'LAN',
             'Options',
             'Save',
             'Exit'
