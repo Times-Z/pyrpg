@@ -21,9 +21,10 @@ class Game():
     classes = Settings.loadClass(Settings)
 
     def __init__(self):
+        Printator.resolution(60, 40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
-        Printator.__init__(Printator)
+        Printator.init(Printator)
         Printator.loading(0, 20)
         if Saveator.init(Saveator) == True:
             self.showInformation(self)
