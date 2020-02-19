@@ -41,13 +41,18 @@ class Game():
         Saveator.updateStats(Saveator)
         self.mainMenu(self)
 
-    def mainMenu(self):
-        choice = Printator.showMainMenu(Printator)
+    def mainMenu(self, jump = False):
+        if jump == False:
+            choice = Printator.showMainMenu(Printator)
+        else:
+            choice = jump
         if choice == 0:
             Fightator.quickBattle(Fightator, Saveator.me)
             self.mainMenu(self)
         elif choice == 1:
-            Lantator.init(Lantator)
+            lan = Lantator.init(Lantator)
+            if lan == False:
+                self.mainMenu(self, 1)
         elif choice == 2:
             option = Printator.showMenuOption()
             if option == 0:
