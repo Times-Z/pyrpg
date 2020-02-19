@@ -309,3 +309,15 @@ class Printator():
         print(Fore.YELLOW + alt + ' ' + str(power) + ' ' + focus + Fore.RESET)
         Settings.Addspace(Settings, 2)
         return True
+
+    def lanMenu(self):
+        Settings.Addspace(Settings, 30)
+        print('0 -> Create lan')
+        print('1 -> Join lan')
+        choice = input('> ')
+        if choice == '0':
+            return 'host'
+        elif choice == '1':
+            return 'join'
+        else:
+            return False
