@@ -314,10 +314,13 @@ class Printator():
         Settings.Addspace(Settings, 30)
         print('0 -> Create lan')
         print('1 -> Join lan')
+        print('2 -> Back')
         choice = input('> ')
         if choice == '0':
             return 'host'
         elif choice == '1':
             return 'join'
+        elif choice == '2':
+            return 'back'
         else:
             return False
