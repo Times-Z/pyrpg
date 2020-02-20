@@ -1,4 +1,4 @@
-FROM debian:10
+FROM debian:buster-slim
 
 RUN apt-get update \
 && apt-get -y install software-properties-common \
