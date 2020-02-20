@@ -4,26 +4,24 @@ The python rpg
 
 ----------------------
 
-
 # How to play
 
-First of all, clone repository with 
-```bash 
-    git clone https://github.com/Crash-Zeus/pyrpg.git
-```
-
-1. Make you sur ton have python v 3.6 or latest
-2. Install with pip requirement (in requirement.txt)
-3. Go in the folder of the repository
-4. run main.py with your python3 (python main.py or python3 main.py differ with your conf)
-
-
-
-
-
-
+1. First of all, clone repository with 
+    ```bash 
+        git clone https://github.com/Crash-Zeus/pyrpg.git
+    ```
+2. Make you sure ton have docker-compose & docker install on your machine
+3. Run docker-compose in the repo with
+    ```bash 
+        docker-compose up -d --build
+    ```
+4. Run the game with
+    ```bash
+        docker exec -it pyrpg python3 /app/main.py
+    ```
 
 
+-----------
 
 
 
