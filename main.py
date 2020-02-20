@@ -53,6 +53,8 @@ class Game():
             lan = Lantator.init(Lantator)
             if lan == False:
                 self.mainMenu(self, 1)
+            else:
+                self.mainMenu(self)
         elif choice == 2:
             option = Printator.showMenuOption()
             if option == 0:
