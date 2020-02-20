@@ -23,6 +23,9 @@ class Lantator:
                     request = self.connection.recv(2048)
                     if request:
                         data = request.decode()
+                        if data == 'exit':
+                            servUp = False
+                            return True
                         print(data)
                 except Exception as e:
                     print(e)
@@ -30,16 +33,21 @@ class Lantator:
             print('Enter port number :')
             self.port = input('> ')
             self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.connection.connect((self.host, int(self.port)))
-            print('Connection etablished on port {0}'.format(self.port))
-            data = input('>>> ')
-            self.connection.send(data.encode())
+            try:
+                self.connection.connect((self.host, int(self.port)))
+                print('Connection etablished on port {0}'.format(self.port))
+                connection = True
+                while connection == True:
+                    data = input('>>> ')
+                    self.connection.send(data.encode())
+                    if data == 'exit':
+                        print(data)
+                        connection == False
+                        return True
+            except Exception as e:
+                print(e)
+                exit
+        elif menu == 'back':
+            return True
         elif menu == False:
             return False
-        # si select == host
-        # selectionner le port pour la lan et crée le serveur d'écoute?
-        # else selectionner le port sans crée de serveur d'écoute?
-        # choice hoster or not
-        # if hoster -> choice port of lan game
-        # if not hoster -> enter port of lan game
-        # 
