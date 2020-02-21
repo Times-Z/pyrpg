@@ -41,7 +41,6 @@ class Lantator:
                     data = input('>>> ')
                     self.connection.send(data.encode())
                     if data == 'exit':
-                        print(data)
                         connection == False
                         return True
             except Exception as e:
