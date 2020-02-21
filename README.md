@@ -13,7 +13,7 @@ The python rpg
 2. Make you sure ton have docker-compose & docker install on your machine
 3. Run docker-compose in the repo with
     ```bash 
-        docker-compose up -d --build
+        docker-compose up -d
     ```
 4. Run the game with
     ```bash
