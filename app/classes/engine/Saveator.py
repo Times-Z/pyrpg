@@ -114,7 +114,6 @@ class Saveator():
 
     def removeSave():
         remove = Printator.removeSave()
-        print(remove)
         if remove == True:
             if os.path.exists("save/save.json"):
                 os.remove("save/save.json")
