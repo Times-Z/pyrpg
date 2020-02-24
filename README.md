@@ -17,7 +17,7 @@ The python rpg
     ```
 4. Run the game with
     ```bash
-        docker exec -it pyrpg python3 /app/main.py
+        docker exec -it pyrpg python3 ./main.py
     ```
 
 
