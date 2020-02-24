@@ -20,10 +20,12 @@ class Lantator:
             servUp = True
             while servUp == True:
                 try:
+                    serverInput = input('> ')
                     request = self.connection.recv(2048)
                     if request:
                         data = request.decode()
                         if data == 'exit':
+                            Printator.success('Client exiting game, closing session')
                             servUp = False
                             return True
                         print(data)
