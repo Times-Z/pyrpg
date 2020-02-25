@@ -10,8 +10,6 @@ from classes.engine.Saveator import Saveator
 from settings.Settings import Settings
 
 # Fight engine
-
-
 class Fightator():
 
     def init(self, me):
