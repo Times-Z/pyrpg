@@ -75,7 +75,7 @@ class Saveator():
             self.choseClass(self)
 
     def updateStats(self):
-        with open('settings/levels.json') as jsonLevel:
+        with open('/app/settings/levels.json') as jsonLevel:
             levels = json.load(jsonLevel)
         key = self.charLevel - 1
         addHp = levels[key]['hp']
@@ -86,7 +86,7 @@ class Saveator():
         return True
 
     def save(self):
-        if os.path.exists("save/save.json"):
+        if os.path.exists("/app/save/save.json"):
             save = Settings.loadSave()
             action = Printator.saveFound(Printator, save, 1)
             if action == True:
@@ -98,10 +98,10 @@ class Saveator():
                 Settings.Addspace(Settings, 2)
                 return False
         else:
-            file = open("save/save.json", "a")
+            file = open("/app/save/save.json", "a")
             json_data = {
                 "charName": "{0}".format(self.charName),
-                "charClassId": self.charClass,
+                "charClassId": self.charClassId,
                 "charClass": self.classes[self.charClass],
                 "charLevel": self.charLevel,
                 "charExp": self.charExp,
@@ -114,20 +114,19 @@ class Saveator():
 
     def removeSave():
         remove = Printator.removeSave()
-        print(remove)
         if remove == True:
             if os.path.exists("save/save.json"):
                 os.remove("save/save.json")
+                Printator.success(Fore.GREEN + 'removing save file success' + Fore.RESET)
                 Printator.showMainMenu(Printator)
-                Printator.success('removing save file success')
             else:
-                Printator.showMenuOption()
                 Printator.success('No save file exist')
+                Printator.showMenuOption()
         else:
             Printator.showMainMenu(Printator)
 
     def checkLevel(level, xp):
-        with open('settings/levels.json') as jsonLevel:
+        with open('/app/settings/levels.json') as jsonLevel:
             levels = json.load(jsonLevel)
         key = level - 1
         xpNeed = levels[key]['toUp']

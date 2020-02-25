@@ -7,7 +7,7 @@ class Character:
 
     def __init__(self, charType):
         if charType == 'monster':
-            with open('settings/monsters.json') as f:
+            with open('/app/settings/monsters.json') as f:
                 data = json.load(f)
             monster = random.choice(data)
             self.type = 'monster'
@@ -20,7 +20,7 @@ class Character:
             self.spe = monster['spell']
             self.xp = random.randint(monster['expMin'], monster['expMax'])
         else:
-            with open("settings/classes.json", "r") as f:
+            with open("/app/settings/classes.json", "r") as f:
                 self.charClass = json.load(f)
             this = self.charClass[charType]
             self.type = 'player'

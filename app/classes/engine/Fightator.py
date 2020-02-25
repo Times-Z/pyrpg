@@ -10,8 +10,6 @@ from classes.engine.Saveator import Saveator
 from settings.Settings import Settings
 
 # Fight engine
-
-
 class Fightator():
 
     def init(self, me):
@@ -30,6 +28,8 @@ class Fightator():
         Printator.battleInfo(self.turn, self.me, self.monster)
         self.battleAction(self)
         return 0
+
+    # Add lanbattle function
 
     def battleAction(self):
         action = Printator.showBattleAction(self.useSpe, self.me, self.monster)
@@ -61,6 +61,8 @@ class Fightator():
                 return 0
             else:
                 self.cpuTurn(self)
+        elif action == 'pass':
+            self.cpuTurn(self)
         elif action == False:
             Printator.success('Bad entry', 2)
             self.battleAction(self)
@@ -85,6 +87,9 @@ class Fightator():
                 atk = round(caster.atk * (int(self.protect) / 100))
             res = target.hp - atk
             self.lastAtk = atk
+            if caster.atk < 0:
+                res = target.hp - 0
+                self.lastAtk = 0
             self.protect = 0
         return int(res)
 
@@ -117,13 +122,22 @@ class Fightator():
                                    self.monster, spellAlterate, spellPower)
             self.useSpe += 1
 
-        if spellTarget == 'self':
-            self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
-            return True
+        if caster.type == 'monster':
+            if spellTarget == 'self':
+                self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
+                return True
+            else:
+                self.calcSpell(self, self.me, spellFocus,
+                            spellAlterate, spellPower)
+                return True
         else:
-            self.calcSpell(self, self.monster, spellFocus,
-                           spellAlterate, spellPower)
-            return True
+            if spellTarget == 'self':
+                self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
+                return True
+            else:
+                self.calcSpell(self, self.monster, spellFocus,
+                            spellAlterate, spellPower)
+                return True
 
     def calcSpell(self, target, focus, alt, power):
         if focus == 'def':
@@ -192,6 +206,7 @@ class Fightator():
         Settings.Addspace(Settings, 2)
         if level == True:
             Saveator.charLevel += 1
+            Saveator.updateStats(Saveator)
             Printator.success(Fore.GREEN + 'Level up !' + Fore.RESET)
             Printator.success('Level : ' + str(Saveator.charLevel), 2)
         return 0

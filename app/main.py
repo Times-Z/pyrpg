@@ -12,6 +12,7 @@ from colorama import Fore, Back, Style
 from classes.engine.Printator import Printator
 from classes.engine.Saveator import Saveator
 from classes.engine.Fightator import Fightator
+from classes.engine.Lantator import Lantator
 from settings.Settings import Settings
 from classes.char.Character import Character
 
@@ -21,9 +22,10 @@ class Game():
     classes = Settings.loadClass(Settings)
 
     def __init__(self):
+        Printator.resolution(60, 40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
-        Printator.__init__(Printator)
+        Printator.init(Printator)
         Printator.loading(0, 20)
         if Saveator.init(Saveator) == True:
             self.showInformation(self)
@@ -39,13 +41,20 @@ class Game():
         Saveator.updateStats(Saveator)
         self.mainMenu(self)
 
-    def mainMenu(self):
-        choice = Printator.showMainMenu(Printator)
+    def mainMenu(self, jump = False):
+        if jump == False:
+            choice = Printator.showMainMenu(Printator)
+        else:
+            choice = jump
         if choice == 0:
             Fightator.quickBattle(Fightator, Saveator.me)
             self.mainMenu(self)
         elif choice == 1:
-            print('CAMPAGN')
+            lan = Lantator.init(Lantator)
+            if lan == False:
+                self.mainMenu(self, 1)
+            else:
+                self.mainMenu(self)
         elif choice == 2:
             option = Printator.showMenuOption()
             if option == 0:
@@ -56,6 +65,8 @@ class Game():
             save = Saveator.save(Saveator)
             if save != True:
                 self.mainMenu(self)
+        elif choice == 10:
+            self.mainMenu(self)
 
 
 if __name__ == "__main__":

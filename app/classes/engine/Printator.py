@@ -11,7 +11,12 @@ class Printator():
 
     classes = Settings.loadClass(Settings)
 
-    def __init__(self):
+    def resolution(col, row):
+        print('Recommended resolution of terminal is : ')
+        print(' ' + str(col) + ' X ' + str(row))
+        input('[press enter to continue]')
+
+    def init(self):
         print("""
             .=========================================.
             |                                         |
@@ -180,8 +185,7 @@ class Printator():
         elif action == "4":
             exit
         else:
-            Settings.Addspace(Settings, 2)
-            self.showMainMenu(self)
+            return 10
 
     def showMenuOption():
         Settings.Addspace(Settings, 20)
@@ -239,11 +243,9 @@ class Printator():
         print("|" + color + healthDisplay + Fore.RESET + remainingDisplay + "| " + str(health) + ' / ' + str(maxHealth))
 
     def battleInfo(turn, me, monster):
-        Settings.Addspace(Settings, 2)
         print('Turn : ' + str(turn))
         Settings.Addspace(Settings, 2)
         print("---------------------------------------------")
-        Settings.Addspace(Settings, 2)
         print("You : ")
         Printator.health(me.maxHp, me.hp)
         print(
@@ -251,9 +253,7 @@ class Printator():
                 me.atk, me.defc, me.acr
             )
         )
-        Settings.Addspace(Settings, 2)
         print("---------------------------------------------")
-        Settings.Addspace(Settings, 2)
         print(monster.name + " :")
         Printator.health(monster.maxHp, monster.hp)
         print(
@@ -261,17 +261,17 @@ class Printator():
                 monster.atk, monster.defc, monster.acr
             )
         )
-        Settings.Addspace(Settings, 2)
         print("---------------------------------------------")
-        Settings.Addspace(Settings, 2)
+        Settings.Addspace(Settings, 1)
         return True
 
     def showBattleAction(useSpe, me, monster):
-        print("0 -> Attak " + monster.name)
+        print(" 0 -> Attak " + monster.name)
         if useSpe == 0:
-            print("1 -> Special : %s " % me.spe['name'])
-        print("2 -> Defend (%i %%)" % me.defc)
-        print("3 -> Escape")
+            print(" 1 -> Special : %s " % me.spe['name'])
+        print(" 2 -> Defend (%i %%)" % me.defc)
+        print(" 3 -> Escape")
+        print(" 4 -> pass")
         Settings.Addspace(Settings, 1)
         action = input("> ")
         if action == "0":
@@ -288,6 +288,8 @@ class Printator():
             return 'protect'
         elif action == "3":
             return 'escape'
+        elif action == "4":
+            return 'pass'
         else:
             return False
 
@@ -307,3 +309,18 @@ class Printator():
         print(Fore.YELLOW + alt + ' ' + str(power) + ' ' + focus + Fore.RESET)
         Settings.Addspace(Settings, 2)
         return True
+
+    def lanMenu(self):
+        Settings.Addspace(Settings, 30)
+        print('0 -> Create lan')
+        print('1 -> Join lan')
+        print('2 -> Back')
+        choice = input('> ')
+        if choice == '0':
+            return 'host'
+        elif choice == '1':
+            return 'join'
+        elif choice == '2':
+            return 'back'
+        else:
+            return False

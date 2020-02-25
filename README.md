@@ -1,17 +1,29 @@
 # PYRPG
 
-The python rpg
+The python command line rpg
 
 ----------------------
 
-## TO DO
+# How to play
 
-| Add               | bug           ||
-| -------------     |:-------------:| -----:|
-| Level adding stats|               |❌       |
-| Fix negative atk  |     ✔️         | ✔️    |
-| More levels stats json (out of range problem)  |          | ❌    |
+## Play image from docker hub
 
+- ```bash 
+    docker run -it crashzeus/pyrpg  python3 ./main.py
+    ```
 
-
+## Play localy
+-  First of all, clone repository with 
+    ```bash 
+        git clone https://github.com/Crash-Zeus/pyrpg.git
+    ```
+-  Make you sure ton have docker-compose & docker install on your machine
+-  Run docker-compose in the repo with
+    ```bash 
+        docker-compose up -d
+    ```
+-  Run the game with
+    ```bash
+        docker exec -it pyrpg python3 ./main.py
+    ```
 More soon

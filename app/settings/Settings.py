@@ -42,12 +42,12 @@ class Settings():
         return print(values)
 
     def loadSave():
-        with open('save/save.json', 'r') as save:
+        with open('/app/save/save.json', 'r') as save:
             load_save = json.load(save)
         return load_save
 
     def loadClass(self):
-        with open('settings/classes.json', 'r') as f:
+        with open('/app/settings/classes.json', 'r') as f:
             load_class = json.load(f)
         return load_class
 
@@ -59,7 +59,7 @@ class Settings():
     def mainMenu():
         menu = [
             'Quick battle',
-            'Campagne',
+            'LAN',
             'Options',
             'Save',
             'Exit'
