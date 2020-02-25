@@ -7,7 +7,7 @@ RUN apt-get update \
 && apt-get -y install python3-pip \
 && pip3 install colorama
 
-RUN alias start="python3 ./main.py"
+RUN echo "alias alias start='python3 /app/main.py'" >> ~/.bash_profile
 
 COPY ./app /app
 WORKDIR /app
