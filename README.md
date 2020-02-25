@@ -5,7 +5,12 @@ The python rpg
 ----------------------
 
 # How to play
+<!-- 
+## Play from docker hub
 
+1. docker run crashzeus/pyrpg -it pyrpg python3 ./main.py -->
+
+## Play localy
 1. First of all, clone repository with 
     ```bash 
         git clone https://github.com/Crash-Zeus/pyrpg.git
