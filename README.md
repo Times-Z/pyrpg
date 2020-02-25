@@ -9,7 +9,7 @@ The python command line rpg
 ## Play image from docker hub
 
 - ```bash 
-    docker run -it crashzeus/pyrpg:tag  start
+    docker run -it crashzeus/pyrpg:tag  python3 ./main.py
     ```
 Available tag :
 - stable
