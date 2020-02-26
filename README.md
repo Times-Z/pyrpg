@@ -16,6 +16,8 @@ Available tag :
 - stable
 - dev
 
+Docker image from https://hub.docker.com/r/crashzeus/pyrpg
+
 ## Play localy
 -  First of all, clone repository with 
     ```bash 
