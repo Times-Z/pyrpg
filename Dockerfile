@@ -1,13 +1,9 @@
-FROM debian:buster-slim
 
-RUN apt-get update \
-&& apt-get -y install software-properties-common \
-&& apt-get update \
-&& apt-get -y install python3 \
-&& apt-get -y install python3-pip \
-&& pip3 install colorama
+FROM python:3.8.1-slim
 
-RUN echo 'alias start="python3 /app/main.py"' >> ~/.bashrc
+RUN pip3 install colorama
 
 COPY ./app /app
 WORKDIR /app
+
+CMD ["python3", "./main.py"]
