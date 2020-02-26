@@ -12,6 +12,7 @@ The python command line rpg
     docker run -it crashzeus/pyrpg:tag
     ```
 Available tag :
+- latest (develop only)
 - stable
 - dev
 
