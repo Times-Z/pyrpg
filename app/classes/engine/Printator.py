@@ -83,6 +83,17 @@ class Printator():
         os.system('setterm -cursor on')
         return True
 
+    def logMenu(self):
+        Printator.success('0 -> Signin')
+        Printator.success('1 -> Sigup')
+        choice = input('> ')
+        if choice == '0':
+            return 'signin'
+        elif choice == '1':
+            return 'signup'
+        else:
+            return False
+
     def saveFound(self, save, *action):
         print("Save file found for :")
         print(
