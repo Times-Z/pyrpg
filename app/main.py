@@ -23,6 +23,7 @@ class Game():
 
     def __init__(self):
         Configator.init(Configator)
+        Configator.login(Configator)
         Printator.resolution(60, 40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
