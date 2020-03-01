@@ -15,13 +15,14 @@ from classes.engine.Fightator import Fightator
 from classes.engine.Lantator import Lantator
 from settings.Settings import Settings
 from classes.char.Character import Character
-
+from classes.engine.Configator import Configator
 
 class Game():
 
     classes = Settings.loadClass(Settings)
 
     def __init__(self):
+        Configator.init(Configator)
         Printator.resolution(60, 40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
