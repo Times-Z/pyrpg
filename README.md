@@ -13,9 +13,9 @@ The python command line rpg
 
 ## Play image from docker hub
 
-- ```bash 
+```bash 
     docker run -p {PORT}:8080 -it crashzeus/pyrpg:tag
-    ```
+```
 Available tag :
 - latest (develop only)
 - stable
@@ -38,4 +38,11 @@ Docker image from https://hub.docker.com/r/crashzeus/pyrpg
     ```bash
         docker exec -it pyrpg python3 ./main.py
     ```
+    OR
+    ```bash
+        docker run --net=pyrpgapi_local_api -p {PORT}:8080 -it crashzeus/pyrpg:tag
+    ```
+    To run API localy
+    -> refer to : https://github.com/Crash-Zeus/pyrpgApi
+
 More soon
