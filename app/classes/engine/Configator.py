@@ -8,14 +8,14 @@ from classes.engine.Printator import Printator
 class Configator:
 
     onlineApi = "http://2001:41d0:301::29:8080/"
-    localApi = "http://172.17.0.2:8080/"
+    localApi = "http://172.18.1.1:8080/"
     env = ''
     ip = ''
 
     def init(self):
         Printator.success('Checking API')
         try:
-            r = requests.get(self.onlineApi)
+            r = requests.post(self.onlineApi + 'ping')
             if r.status_code == 200:
                 self.env = 'online'
                 self.ip = self.onlineApi
@@ -26,7 +26,7 @@ class Configator:
             Printator.success(Fore.RED + 'API online not responding' + Fore.RESET)
             time.sleep(0.5)
             try:
-                r = requests.get(self.localApi)
+                r = requests.post(self.localApi + 'ping')
                 if r.status_code == 200:
                     self.env = 'local'
                     self.ip = self.localApi
@@ -55,7 +55,7 @@ class Configator:
             username = input('Pseudo > ')
             password = getpass.getpass(prompt='Password > ', stream=None)
             confirmpass = getpass.getpass(prompt='Confirm password > ', stream=None)
-            if password != confirmpassword:
+            if password != confirmpass:
                 Printator.success('Passwords not matching')
                 return False
 
