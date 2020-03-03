@@ -32,15 +32,7 @@ Docker image from https://hub.docker.com/r/crashzeus/pyrpg
 -  Make you sure ton have docker-compose & docker install on your machine
 -  Run docker-compose in the repo with
     ```bash 
-        docker-compose up -d
-    ```
--  Run the game with
-    ```bash
-        docker exec -it pyrpg python3 ./main.py
-    ```
-    OR
-    ```bash
-        docker run --net=pyrpgapi_local_api -p {PORT}:8080 -it crashzeus/pyrpg:tag
+        docker-compose up -d 
     ```
     To run API localy
     -> refer to : https://github.com/Crash-Zeus/pyrpgApi
