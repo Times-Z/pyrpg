@@ -30,9 +30,13 @@ Docker image from https://hub.docker.com/r/crashzeus/pyrpg
         git clone https://github.com/Crash-Zeus/pyrpg.git
     ```
 -  Make you sure ton have docker-compose & docker install on your machine
--  Run docker-compose in the repo with
+-  Build game
     ```bash 
-        docker-compose up -d 
+        docker-compose build
+    ```
+- Run game
+    ```bash 
+        docker-compose run game
     ```
     To run API localy
     -> refer to : https://github.com/Crash-Zeus/pyrpgApi
