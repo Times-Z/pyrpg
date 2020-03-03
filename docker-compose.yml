@@ -7,10 +7,12 @@ networks:
         - subnet: 172.18.0.0/16
 
 services:
-  pyrpg:
-    image: crashzeus/pyrpg:dev
-    # build: .
-    container_name: pyrpg
+  game:
+    # image: crashzeus/pyrpg:dev
+    build: .
+    container_name: game
+    stdin_open: true
     tty: true
     networks:
       - net
+    entrypoint: python3 /app/main.py

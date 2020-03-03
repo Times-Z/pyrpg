@@ -7,5 +7,3 @@ COPY ./app /app
 WORKDIR /app
 
 EXPOSE 8080
-
-CMD ["python3", "./main.py"]
