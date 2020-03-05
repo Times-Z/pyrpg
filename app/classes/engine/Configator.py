@@ -7,7 +7,7 @@ from classes.engine.Printator import Printator
 
 class Configator:
 
-    onlineApi = "http://2001:41d0:301::29:8080/"
+    onlineApi = "http://5.196.72.181:32768/"
     localApi = "http://api:8080/"
     env = ''
     ip = ''
