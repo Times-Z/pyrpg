@@ -36,7 +36,7 @@ Docker image from https://hub.docker.com/r/crashzeus/pyrpg
     ```
 - Run game
     ```bash 
-        docker-compose run game
+        docker-compose run --rm game
     ```
     To run API localy
     -> refer to : https://github.com/Crash-Zeus/pyrpgApi
