@@ -19,22 +19,22 @@ class Configator:
             if r.status_code == 200:
                 self.env = 'online'
                 self.ip = self.onlineApi
-                Printator.success(Fore.GREEN + 'API online status ok' + Fore.RESET)
+                Printator.success(Fore.GREEN + 'API online status ok')
                 return True
         except Exception as e:
             time.sleep(0.5)
-            Printator.success(Fore.RED + 'API online not responding' + Fore.RESET)
+            Printator.success(Fore.RED + 'API online not responding')
             time.sleep(0.5)
             try:
                 r = requests.post(self.localApi + 'ping')
                 if r.status_code == 200:
                     self.env = 'local'
                     self.ip = self.localApi
-                    Printator.success(Fore.GREEN + 'API local status ok' + Fore.RESET)
+                    Printator.success(Fore.GREEN + 'API local status ok')
                     time.sleep(0.5)
                     return True
             except Exception as e:
-                Printator.success(Fore.RED + "API local not responding" + Fore.RESET)
+                Printator.success(Fore.RED + "API local not responding")
                 time.sleep(0.5)
                 Printator.success('To start the local API refer you to https://github.com/Crash-Zeus/pyrpgApi')
                 time.sleep(0.5)
@@ -47,30 +47,42 @@ class Configator:
     def login(self, log = False):
         if log == False:
             logs = Printator.logMenu(Printator)
+        elif log == 1:
+            logs = 'signin'
         else:
             logs = 'signup'
         if logs == 'signin':
-            Printator.success('Create an account')
+            if log == False:
+                Printator.success('Create an account')
             email = input('Email > ')
             username = input('Pseudo > ')
-            password = getpass.getpass(prompt='Password > ', stream=None)
-            confirmpass = getpass.getpass(prompt='Confirm password > ', stream=None)
-            if password != confirmpass:
-                Printator.success('Passwords not matching')
-                return False
-
+            passw = self.registeryPass(self)
+            if passw == False:
+                self.login(self, 1)
             data = {
                 "username" : username,
                 "email" : email,
-                "password": password
+                "password": passw
             }
             r = requests.post(self.ip + 'signup', data)
             if r.status_code == 200:
-                Printator.success(Fore.GREEN + 'Your account have successfully created' + Fore.RESET)
+                Printator.success(Fore.GREEN + 'Your account have successfully created')
+            elif r.status_code == 401:
+                Printator.success(Fore.RED + str(r.json()['message']))
+                self.login(self, 1)
             else:
-                Printator.success(Fore.RED + 'An error was encountered' + Fore.RESET)
+                Printator.success(Fore.RED + str(r.json()['message']))
             self.login(self, True)
         elif logs == 'signup':
             Printator.success('Login')
         else:
             self.login(self)
+
+    def registeryPass(self):
+        password = getpass.getpass(prompt='Password > ', stream=None)
+        confirmpass = getpass.getpass(prompt='Confirm password > ', stream=None)
+        if password == confirmpass:
+            return password
+        else:
+            Printator.success(Fore.RED + 'Password not match')
+            return False
