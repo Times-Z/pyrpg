@@ -94,7 +94,7 @@ class Saveator():
                 self.save(self)
             else:
                 Settings.Addspace(Settings, 2)
-                Printator.success(Fore.RED + 'Aborted' + Fore.RESET)
+                Printator.success(Fore.RED + 'Aborted')
                 Settings.Addspace(Settings, 2)
                 return False
         else:
@@ -117,7 +117,7 @@ class Saveator():
         if remove == True:
             if os.path.exists("save/save.json"):
                 os.remove("save/save.json")
-                Printator.success(Fore.GREEN + 'removing save file success' + Fore.RESET)
+                Printator.success(Fore.GREEN + 'removing save file success')
                 Printator.showMainMenu(Printator)
             else:
                 Printator.success('No save file exist')

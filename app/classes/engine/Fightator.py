@@ -149,7 +149,7 @@ class Fightator():
             if spell > target.maxHp:
                 spell = target.maxHp
                 Printator.success('Healing cannot exceed max HP', 1)
-                Printator.success(Fore.GREEN + 'Hp full' + Fore.RESET, 1)
+                Printator.success(Fore.GREEN + 'Hp full', 1)
         setattr(target, focus, spell)
         return True
 
@@ -189,10 +189,10 @@ class Fightator():
         Printator.loading(0, 5)
         dice = random.randint(1, 6)
         if dice == 6:
-            Printator.success(Fore.GREEN + 'Escape success' + Fore.RESET, 2)
+            Printator.success(Fore.GREEN + 'Escape success', 2)
             return True
         else:
-            Printator.success(Fore.RED + 'Escape failed' + Fore.RESET, 2)
+            Printator.success(Fore.RED + 'Escape failed', 2)
             return False
 
     def win(self):
@@ -200,18 +200,18 @@ class Fightator():
         level = Saveator.checkLevel(Saveator.charLevel, Saveator.charExp)
         Settings.Addspace(Settings, 2)
         Printator.success('Exp win : ' + Fore.GREEN +
-                          str(self.monster.xp) + Fore.RESET)
+                          str(self.monster.xp))
         Printator.success('Total exp : ' + Fore.GREEN +
-                          str(Saveator.charExp) + Fore.RESET)
+                          str(Saveator.charExp))
         Settings.Addspace(Settings, 2)
         if level == True:
             Saveator.charLevel += 1
             Saveator.updateStats(Saveator)
-            Printator.success(Fore.GREEN + 'Level up !' + Fore.RESET)
+            Printator.success(Fore.GREEN + 'Level up !')
             Printator.success('Level : ' + str(Saveator.charLevel), 2)
         return 0
 
     def gameOver(self):
-        Printator.success(Fore.RED + ' GAME OVER ! ' + Fore.RESET)
+        Printator.success(Fore.RED + ' GAME OVER ! ')
         self.end = 1
         sys.exit('Quit game, you die')

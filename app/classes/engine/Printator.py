@@ -233,7 +233,7 @@ class Printator():
     def success(string, space=0):
         if space != 0:
             Settings.Addspace(Settings, space)
-        print(string)
+        print(string + Fore.RESET)
         if space != 0:
             Settings.Addspace(Settings, space)
         return True
