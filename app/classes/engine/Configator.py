@@ -68,6 +68,7 @@ class Configator:
             r = requests.post(self.ip + 'signup', data)
             if r.status_code == 200:
                 Printator.success(Fore.GREEN + 'Your account have successfully created')
+                self.login(self, 2)
             elif r.status_code == 401:
                 Printator.success(Fore.RED + str(r.json()['message']))
                 self.login(self, 1)
@@ -107,3 +108,21 @@ class Configator:
             return r.json()
         else:
             return False
+    
+    def removeSave(self):
+        header = {'Authorization':'Bearer ' + self.token}
+        r = requests.post(self.ip + 'delSave', headers=header)
+        if r.status_code == 200:
+            return True
+        else:
+            return r.json()
+
+    def save(self, raw):
+        header = {'Authorization':'Bearer ' + self.token}
+        data = {"save":raw}
+        print(data)
+        r = requests.post(self.ip + 'save', data, headers=header)
+        if r.status_code == 200:
+            return True
+        else:
+            return r.json()['message']

@@ -88,30 +88,37 @@ class Saveator():
         return True
 
     def save(self):
-        if os.path.exists("/app/save/save.json"):
-            save = Settings.loadSave()
+        data = Configator.getSave(Configator)
+        if data != False:
+            save = json.loads(str(data['save']['save_json']))
             action = Printator.saveFound(Printator, save, 1)
             if action == True:
-                os.remove("save/save.json")
-                self.save(self)
+                rm = Configator.removeSave(Configator)
+                if rm == True:
+                    self.save(self)
+                else:
+                    Printator.success(Fore.RED + 'Error on delete save')
             else:
                 Settings.Addspace(Settings, 2)
                 Printator.success(Fore.RED + 'Aborted')
                 Settings.Addspace(Settings, 2)
                 return False
         else:
-            file = open("/app/save/save.json", "a")
             json_data = {
                 "charName": "{0}".format(self.charName),
                 "charClassId": self.charClassId,
-                "charClass": self.classes[self.charClass],
+                "charClass": self.classes[self.charClassId],
                 "charLevel": self.charLevel,
                 "charExp": self.charExp,
                 "score": self.score,
             }
-            json.dump(json_data, fp=file, indent=4, sort_keys=False)
-            file.close()
-            Printator.saved()
+            data = json.dumps(json_data)
+            saved = Configator.save(Configator, data)
+            if saved == True:
+                Printator.saved()
+            else:
+                Printator.success(str(saved))
+            # json.dump(json_data, fp=file, indent=4, sort_keys=False)
             return False
 
     def removeSave():
