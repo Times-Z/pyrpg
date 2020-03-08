@@ -11,6 +11,7 @@ class Configator:
     localApi = "http://api:8080/"
     env = ''
     ip = ''
+    token = ''
 
     def init(self):
         Printator.success('Checking API')
@@ -72,9 +73,21 @@ class Configator:
                 self.login(self, 1)
             else:
                 Printator.success(Fore.RED + str(r.json()['message']))
-            self.login(self, True)
+                self.login(self, True)
         elif logs == 'signup':
-            Printator.success('Login')
+            Printator.success('Connect to your account')
+            email = input('Email > ')
+            password = getpass.getpass(prompt='Password > ', stream=None)
+            data = {
+                "email" : email,
+                "password" : password
+            }
+            r = requests.post(self.ip + 'login', data)
+            if r.status_code == 200:
+                self.token = str(r.json()['data'])
+                Printator.success(Fore.GREEN + 'Logged')
+            else:
+                sys.exit(Fore.RED + str(r.json()['message']) + Fore.RESET)
         else:
             self.login(self)
 
@@ -85,4 +98,12 @@ class Configator:
             return password
         else:
             Printator.success(Fore.RED + 'Password not match')
+            return False
+
+    def getSave(self):
+        header = {'Authorization':'Bearer ' + self.token}
+        r = requests.post(self.ip + 'getSave', headers=header)
+        if r.json()['save'] != None:
+            return r.json()
+        else:
             return False
