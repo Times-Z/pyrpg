@@ -4,6 +4,7 @@ import json
 from classes.engine.Printator import Printator
 from settings.Settings import Settings
 from classes.char.Character import Character
+from classes.engine.Configator import Configator
 from colorama import Fore, Style, Back
 
 
@@ -19,8 +20,9 @@ class Saveator():
     score = 0
 
     def init(self):
-        if os.path.isfile("save/save.json"):
-            save = Settings.loadSave()
+        data = Configator.getSave(Configator)
+        if data != False:
+            save = json.loads(str(data['save']['save_json']))
             Printator.saveFound(Printator, save)
             loadsave = input("> ")
             if loadsave == "y":
