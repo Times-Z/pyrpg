@@ -120,7 +120,6 @@ class Configator:
     def save(self, raw):
         header = {'Authorization':'Bearer ' + self.token}
         data = {"save":raw}
-        print(data)
         r = requests.post(self.ip + 'save', data, headers=header)
         if r.status_code == 200:
             return True
