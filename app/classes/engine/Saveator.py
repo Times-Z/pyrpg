@@ -118,15 +118,18 @@ class Saveator():
                 Printator.saved()
             else:
                 Printator.success(str(saved))
-            # json.dump(json_data, fp=file, indent=4, sort_keys=False)
             return False
 
     def removeSave():
         remove = Printator.removeSave()
         if remove == True:
-            if os.path.exists("save/save.json"):
-                os.remove("save/save.json")
-                Printator.success(Fore.GREEN + 'removing save file success')
+            data = Configator.getSave(Configator)
+            if data != False:
+                rm = Configator.removeSave(Configator)
+                if rm == True:
+                    Printator.success(Fore.GREEN + 'removing save file success')
+                else:
+                    Printator.success(Fore.RED + 'An error encountered')
                 Printator.showMainMenu(Printator)
             else:
                 Printator.success('No save file exist')
