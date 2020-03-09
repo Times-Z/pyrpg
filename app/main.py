@@ -19,10 +19,10 @@ from classes.engine.Apitator import Apitator
 
 class Game():
 
-    classes = Settings.loadClass(Settings)
-
     def __init__(self):
         Apitator.init(Apitator)
+        self.classes = Apitator.getClass(Apitator)
+        print(self.classes)
         Apitator.login(Apitator)
         Printator.resolution(60, 40)
         # Goes wrong with some console : include kde konsole, fix exist ?

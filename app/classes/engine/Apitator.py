@@ -1,6 +1,7 @@
 import sys
 import requests
 import time
+import json
 import getpass
 from colorama import Fore, Back, Style
 from classes.engine.Printator import Printator
@@ -125,3 +126,28 @@ class Apitator:
             return True
         else:
             return r.json()['message']
+
+    def getApiClass(self):
+        r = requests.get(self.ip + 'classes')
+        if r.status_code == 200:
+            # print(json.loads(str(r.json()['classes'][0]['class_json'])))
+            return r.json()['classes']
+        else:
+            return r.json()['message']
+    
+    def getClass(self, cID = False):
+        apiClass = self.getApiClass(self)
+        if cID == False:
+            for x in range (0,len(apiClass)):
+                with open('/app/settings/tmp.json', 'a') as f:
+                    json.dump(json.loads(apiClass[x]['class_json']), f)
+                f.close()
+            # with open('/app/settings/tmp.json', 'r') as f:
+            #     loads = json.load(f)
+            # return loads
+                    # classes = json.loads()
+                    # print(classes)
+        else:
+            for x in range(cID, cID):
+                classes = json.loads(apiClass[x]['class_json'])
+                print(classes)

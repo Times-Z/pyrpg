@@ -38,13 +38,8 @@ class Settings():
     def resize():
         sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=30, cols=50))
 
-    def debug(*values):
+    def debug(values = ''):
         return print(values)
-
-    def loadSave():
-        with open('/app/save/save.json', 'r') as save:
-            load_save = json.load(save)
-        return load_save
 
     def loadClass(self):
         with open('/app/settings/classes.json', 'r') as f:
