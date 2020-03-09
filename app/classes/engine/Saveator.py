@@ -4,7 +4,7 @@ import json
 from classes.engine.Printator import Printator
 from settings.Settings import Settings
 from classes.char.Character import Character
-from classes.engine.Configator import Configator
+from classes.engine.Apitator import Apitator
 from colorama import Fore, Style, Back
 
 
@@ -20,7 +20,7 @@ class Saveator():
     score = 0
 
     def init(self):
-        data = Configator.getSave(Configator)
+        data = Apitator.getSave(Apitator)
         if data != False:
             save = json.loads(str(data['save']['save_json']))
             Printator.saveFound(Printator, save)
@@ -88,12 +88,12 @@ class Saveator():
         return True
 
     def save(self):
-        data = Configator.getSave(Configator)
+        data = Apitator.getSave(Apitator)
         if data != False:
             save = json.loads(str(data['save']['save_json']))
             action = Printator.saveFound(Printator, save, 1)
             if action == True:
-                rm = Configator.removeSave(Configator)
+                rm = Apitator.removeSave(Apitator)
                 if rm == True:
                     self.save(self)
                 else:
@@ -113,7 +113,7 @@ class Saveator():
                 "score": self.score,
             }
             data = json.dumps(json_data)
-            saved = Configator.save(Configator, data)
+            saved = Apitator.save(Apitator, data)
             if saved == True:
                 Printator.saved()
             else:
@@ -123,9 +123,9 @@ class Saveator():
     def removeSave():
         remove = Printator.removeSave()
         if remove == True:
-            data = Configator.getSave(Configator)
+            data = Apitator.getSave(Apitator)
             if data != False:
-                rm = Configator.removeSave(Configator)
+                rm = Apitator.removeSave(Apitator)
                 if rm == True:
                     Printator.success(Fore.GREEN + 'removing save file success')
                 else:

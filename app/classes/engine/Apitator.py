@@ -5,7 +5,7 @@ import getpass
 from colorama import Fore, Back, Style
 from classes.engine.Printator import Printator
 
-class Configator:
+class Apitator:
 
     onlineApi = "http://5.196.72.181:8080/"
     localApi = "http://api:8080/"
