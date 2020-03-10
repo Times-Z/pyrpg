@@ -41,11 +41,6 @@ class Settings():
     def debug(values = ''):
         return print(values)
 
-    def loadClass(self):
-        with open('/app/settings/classes.json', 'r') as f:
-            load_class = json.load(f)
-        return load_class
-
     def Addspace(self, nbrSpace):
         for i in range(nbrSpace):
             print('')
