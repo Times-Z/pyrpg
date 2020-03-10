@@ -1,23 +1,14 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import os
-import random
-import sys
-import time
-import json
-import random
-from colorama import Fore, Back, Style
 
 # My classes
 from classes.engine.Printator import Printator
 from classes.engine.Saveator import Saveator
 from classes.engine.Fightator import Fightator
 from classes.engine.Lantator import Lantator
-from settings.Settings import Settings
-from classes.char.Character import Character
 from classes.engine.Apitator import Apitator
 
-class Game():
+class Game:
 
     def __init__(self):
         Apitator.init(Apitator)
