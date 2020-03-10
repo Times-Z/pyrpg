@@ -9,14 +9,13 @@ from settings.Settings import Settings
 
 class Printator():
 
-    classes = Settings.loadClass(Settings)
-
     def resolution(col, row):
         print('Recommended resolution of terminal is : ')
         print(' ' + str(col) + ' X ' + str(row))
         input('[press enter to continue]')
 
-    def init(self):
+    def init(self, classes):
+        self.classes = classes
         print("""
             .=========================================.
             |                                         |
