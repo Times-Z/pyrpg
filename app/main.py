@@ -22,26 +22,25 @@ class Game():
     def __init__(self):
         Apitator.init(Apitator)
         self.classes = Apitator.getClass(Apitator)
-        print(self.classes)
         Apitator.login(Apitator)
         Printator.resolution(60, 40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
-        Printator.init(Printator)
+        Printator.init(Printator, self.classes)
         Printator.loading(0, 20)
         if Saveator.init(Saveator) == True:
-            self.showInformation(self)
+            self.showInformation()
         else:
             Saveator.choseName(Saveator)
             Saveator.choseClass(Saveator)
-            self.showInformation(self)
+            self.showInformation()
 
     def showInformation(self):
         Printator.showInformations()
         Printator.showMainTitle(
             Saveator.charName, Saveator.me, Saveator.charLevel)
         Saveator.updateStats(Saveator)
-        self.mainMenu(self)
+        self.mainMenu()
 
     def mainMenu(self, jump = False):
         if jump == False:
@@ -50,29 +49,29 @@ class Game():
             choice = jump
         if choice == 0:
             Fightator.quickBattle(Fightator, Saveator.me)
-            self.mainMenu(self)
+            self.mainMenu()
         elif choice == 1:
             lan = Lantator.init(Lantator)
             if lan == False:
-                self.mainMenu(self, 1)
+                self.mainMenu(1)
             else:
-                self.mainMenu(self)
+                self.mainMenu()
         elif choice == 2:
             option = Printator.showMenuOption()
             if option == 0:
                 Saveator.removeSave()
             else:
-                self.mainMenu(self)
+                self.mainMenu()
         elif choice == 3:
             save = Saveator.save(Saveator)
             if save != True:
-                self.mainMenu(self)
+                self.mainMenu()
         elif choice == 10:
-            self.mainMenu(self)
+            self.mainMenu()
 
 
 if __name__ == "__main__":
     try:
-        Game.__init__(Game)
+        Game()
     except KeyboardInterrupt:
         exit
