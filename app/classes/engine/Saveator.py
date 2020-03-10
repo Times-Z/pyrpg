@@ -10,7 +10,6 @@ from colorama import Fore, Style, Back
 
 class Saveator():
 
-    classes = Settings.loadClass(Settings)
     me = False
     charName = False
     charLevel = 1
@@ -20,6 +19,7 @@ class Saveator():
     score = 0
 
     def init(self):
+        self.classes = Apitator.getClass(Apitator)
         data = Apitator.getSave(Apitator)
         if data != False:
             save = json.loads(str(data['save']['save_json']))
@@ -53,6 +53,7 @@ class Saveator():
 
     def choseClass(self):
         Settings.Addspace(Settings, 4)
+        # for i in range(len(self.classes)):
         for i in range(len(self.classes)):
             Printator.classChose(i, self.classes)
         Settings.Addspace(Settings, 2)
