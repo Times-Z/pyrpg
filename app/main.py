@@ -22,11 +22,12 @@ class Game:
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
         self.printator.loading(0, 20)
-        if Saveator.init(Saveator) == True:
+        self.saveator = Saveator(self.printator, self.classes, self.apitator)
+        if self.saveator.loadSave() == True:
             self.showInformation()
         else:
-            Saveator.choseName(Saveator)
-            Saveator.choseClass(Saveator)
+            self.saveator.choseName()
+            self.saveator.choseClass()
             self.showInformation()
 
     def showInformation(self):
