@@ -8,14 +8,19 @@ from settings.Settings import Settings
 
 
 class Printator():
+    """
+        Display class
+        - Use success function to print
+    """
 
-    def resolution(col, row):
+    def __init__(self, classes = None):
+        if classes is not None:
+            self.classes = classes
+
+    def start(self, col, row):
         print('Recommended resolution of terminal is : ')
         print(' ' + str(col) + ' X ' + str(row))
         input('[press enter to continue]')
-
-    def init(self, classes):
-        self.classes = classes
         print("""
             .=========================================.
             |                                         |
@@ -46,7 +51,7 @@ class Printator():
             '========================================='
         """)
 
-    def loading(valmin, valmax, mess=''):
+    def loading(self, valmin, valmax, mess = ''):
         os.system('setterm -cursor off')
         begin = "["
         close = "]"
@@ -83,8 +88,8 @@ class Printator():
         return True
 
     def logMenu(self):
-        Printator.success('0 -> Signin')
-        Printator.success('1 -> Sigup')
+        self.success('0 -> Signin')
+        self.success('1 -> Sigup')
         choice = input('> ')
         if choice == '0':
             return 'signin'
@@ -113,20 +118,20 @@ class Printator():
             print("Continue with this game ? y/n")
             return True
 
-    def saved():
+    def saved(self):
         Settings.Addspace(Settings, 20)
         print(Fore.GREEN + "Game saved" + Fore.RESET)
         Settings.Addspace(Settings, 2)
         return True
 
-    def choseName():
+    def choseName(self):
         Settings.Addspace(Settings, 2)
         print("- New game -")
         Settings.Addspace(Settings, 2)
         print("Choose your name : ")
         return True
 
-    def confirm(param, string):
+    def confirm(self, param, string):
         confirm = input(
             'Do you really want "'
             + Fore.RED
@@ -142,7 +147,7 @@ class Printator():
         else:
             return False
 
-    def classChose(i, classes):
+    def classChose(self, i, classes):
         print(
             str(i)
             + " -> "
@@ -154,11 +159,11 @@ class Printator():
         )
         return True
 
-    def showInformations():
+    def showInformations(self):
         Settings.Addspace(Settings, 10)
         return True
 
-    def showMainTitle(name, me, level):
+    def showMainTitle(self, name, me, level):
         print('-------------------------------------------')
         print('|                                         |')
         print('| RPY   --   THE PYTHON ROLE PLAYING GAME |')
@@ -197,7 +202,7 @@ class Printator():
         else:
             return 10
 
-    def showMenuOption():
+    def showMenuOption(self):
         Settings.Addspace(Settings, 20)
         print("-----------")
         print("| OPTIONS |")
@@ -212,7 +217,7 @@ class Printator():
         elif action == "1":
             return 99
 
-    def removeSave():
+    def removeSave(self):
         print(Fore.RED + "/!\ " + Fore.RESET +
               " WARNING " + Fore.RED + " /!\ ")
         print(
@@ -229,7 +234,7 @@ class Printator():
         else:
             return False
 
-    def success(string, space=0):
+    def success(self, string, space=0):
         if space != 0:
             Settings.Addspace(Settings, space)
         print(string + Fore.RESET)
@@ -237,7 +242,7 @@ class Printator():
             Settings.Addspace(Settings, space)
         return True
 
-    def health(maxHealth, health):
+    def health(self, maxHealth, health):
         healthDashes = 20
         dashConvert = int(maxHealth/healthDashes)
         currentDashes = int(health/dashConvert)
@@ -252,7 +257,7 @@ class Printator():
             color = Fore.RED
         print("|" + color + healthDisplay + Fore.RESET + remainingDisplay + "| " + str(health) + ' / ' + str(maxHealth))
 
-    def battleInfo(turn, me, monster):
+    def battleInfo(self, turn, me, monster):
         print('Turn : ' + str(turn))
         Settings.Addspace(Settings, 2)
         print("---------------------------------------------")
@@ -275,7 +280,7 @@ class Printator():
         Settings.Addspace(Settings, 1)
         return True
 
-    def showBattleAction(useSpe, me, monster):
+    def showBattleAction(self, useSpe, me, monster):
         print(" 0 -> Attak " + monster.name)
         if useSpe == 0:
             print(" 1 -> Special : %s " % me.spe['name'])
@@ -303,14 +308,14 @@ class Printator():
         else:
             return False
 
-    def attak(atk, target):
+    def attak(self, atk, target):
         Settings.Addspace(Settings, 2)
         print("Hit ! Hurt " + target.name)
         print("Decrease hp to " + str(target.hp))
         print(Fore.RED + " - " + str(atk) + " hp" + Fore.RESET)
         return True
 
-    def useSpell(caster, spell, focus, target, alt, power, perso=False):
+    def useSpell(self, caster, spell, focus, target, alt, power, perso=False):
         Settings.Addspace(Settings, 2)
         if perso == True:
             print(caster + ' use "' + spell + '" on ' + caster + '!')
