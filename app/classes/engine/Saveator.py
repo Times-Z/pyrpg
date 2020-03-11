@@ -8,7 +8,7 @@ from classes.engine.Apitator import Apitator
 from colorama import Fore, Style, Back
 
 
-class Saveator():
+class Saveator:
 
     me = False
     charName = False
@@ -17,6 +17,9 @@ class Saveator():
     charClassId = False
     charClass = False
     score = 0
+
+    # def __init__(self):
+    #     self.classes = 
 
     def init(self):
         self.classes = Apitator.getClass(Apitator)
