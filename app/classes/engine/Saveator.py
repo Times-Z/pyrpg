@@ -10,23 +10,23 @@ from colorama import Fore, Style, Back
 
 class Saveator:
 
-    me = False
-    charName = False
-    charLevel = 1
-    charExp = False
-    charClassId = False
-    charClass = False
-    score = 0
-
-    # def __init__(self):
-    #     self.classes = 
-
-    def init(self):
-        self.classes = Apitator.getClass(Apitator)
-        data = Apitator.getSave(Apitator)
+    def __init__(self, printator, classes, api):
+        self.me = False
+        self.charName = False
+        self.charLevel = 1
+        self.charExp = False
+        self.charClassId = False
+        self.charClass = False
+        self.score = 0
+        self.printator = printator
+        self.classes = classes
+        self.apitator = api
+    
+    def loadSave(self):
+        data = self.apitator.getSave()
         if data != False:
             save = json.loads(str(data['save']['save_json']))
-            Printator.saveFound(Printator, save)
+            self.printator.saveFound(save)
             loadsave = input("> ")
             if loadsave == "y":
                 self.charName = save["charName"]
@@ -41,6 +41,26 @@ class Saveator:
                 return False
         else:
             return False
+
+    # def init(self):
+    #     data = Apitator.getSave(Apitator)
+    #     if data != False:
+    #         save = json.loads(str(data['save']['save_json']))
+    #         Printator.saveFound(Printator, save)
+    #         loadsave = input("> ")
+    #         if loadsave == "y":
+    #             self.charName = save["charName"]
+    #             self.charClassId = save["charClassId"]
+    #             self.charClass = save["charClass"]
+    #             self.charLevel = save["charLevel"]
+    #             self.charExp = save["charExp"]
+    #             self.score = save["score"]
+    #             self.me = Character(self.charClassId)
+    #             return True
+    #         else:
+    #             return False
+    #     else:
+    #         return False
 
     def choseName(self):
         Printator.choseName()
