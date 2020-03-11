@@ -8,13 +8,18 @@ from classes.engine.Fightator import Fightator
 from classes.engine.Lantator import Lantator
 from classes.engine.Apitator import Apitator
 
-class Game:
+class Game():
+    """
+        Game class
+    """
 
     def __init__(self):
-        Apitator.init(Apitator)
-        self.classes = Apitator.getClass(Apitator)
-        Apitator.login(Apitator)
-        Printator.resolution(60, 40)
+        self.apitator = Apitator()
+        self.classes = self.apitator.getClass()
+        self.apitator.login()
+        printator = Printator()
+        printator.resolution(60,40)
+        # Printator.resolution(60, 40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
         Printator.init(Printator, self.classes)
