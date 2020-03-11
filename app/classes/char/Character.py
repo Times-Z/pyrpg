@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import json
 import random
+from classes.engine.Apitator import Apitator
 
 
-class Character:
+class Character(Apitator):
 
     def __init__(self, charType):
         if charType == 'monster':
