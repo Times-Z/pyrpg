@@ -10,43 +10,44 @@ from classes.engine.Printator import Printator
 class Apitator:
 
     def __init__(self):
+        self.printator = Printator()
         self.token = ''
         self.onlineApi = "http://5.196.72.181:8080/"
         self.localApi = "http://api:8080/"
-        Printator.success('Checking API')
+        self.printator.success('Checking API')
         try:
             r = requests.post(self.onlineApi + 'ping')
             if r.status_code == 200:
                 self.env = 'online'
                 self.ip = self.onlineApi
-                Printator.success(Fore.GREEN + 'API online status ok')
+                self.printator.success(Fore.GREEN + 'API online status ok')
         except Exception as e:
-            Printator.success(Fore.RED + 'API online not responding')
+            self.printator.success(Fore.RED + 'API online not responding')
             time.sleep(0.5)
             try:
                 r = requests.post(self.localApi + 'ping')
                 if r.status_code == 200:
                     self.env = 'local'
                     self.ip = self.localApi
-                    Printator.success(Fore.GREEN + 'API local status ok')
+                    self.printator.success(Fore.GREEN + 'API local status ok')
             except Exception as e:
-                Printator.success(Fore.RED + "API local not responding")
+                self.printator.success(Fore.RED + "API local not responding")
                 time.sleep(0.5)
-                Printator.success('To start the local API refer you to https://github.com/Crash-Zeus/pyrpgApi')
-                Printator.success('If your local API is started and the problem persists checked ip of API container')
-                Printator.success('The default ip for local API in the program is ' + Fore.GREEN + self.localApi)
+                self.printator.success('To start the local API refer you to https://github.com/Crash-Zeus/pyrpgApi')
+                self.printator.success('If your local API is started and the problem persists checked ip of API container')
+                self.printator.success('The default ip for local API in the program is ' + Fore.GREEN + self.localApi)
                 sys.exit()
     
     def login(self, log = False):
         if log == False:
-            logs = Printator.logMenu(Printator)
+            logs = self.printator.logMenu()
         elif log == 1:
             logs = 'signin'
         else:
             logs = 'signup'
         if logs == 'signin':
             if log == False:
-                Printator.success('Create an account')
+                self.printator.success('Create an account')
             email = input('Email > ')
             username = input('Pseudo > ')
             passw = self.registeryPass()
@@ -59,16 +60,16 @@ class Apitator:
             }
             r = requests.post(self.ip + 'signup', data)
             if r.status_code == 200:
-                Printator.success(Fore.GREEN + 'Your account have successfully created')
+                self.printator.success(Fore.GREEN + 'Your account have successfully created')
                 self.login(2)
             elif r.status_code == 401:
-                Printator.success(Fore.RED + str(r.json()['message']))
+                self.printator.success(Fore.RED + str(r.json()['message']))
                 self.login(1)
             else:
-                Printator.success(Fore.RED + str(r.json()['message']))
+                self.printator.success(Fore.RED + str(r.json()['message']))
                 self.login(True)
         elif logs == 'signup':
-            Printator.success('Connect to your account')
+            self.printator.success('Connect to your account')
             email = input('Email > ')
             password = getpass.getpass(prompt='Password > ', stream=None)
             data = {
@@ -78,7 +79,7 @@ class Apitator:
             r = requests.post(self.ip + 'login', data)
             if r.status_code == 200:
                 self.token = str(r.json()['data'])
-                Printator.success(Fore.GREEN + 'Logged')
+                self.printator.success(Fore.GREEN + 'Logged')
             else:
                 sys.exit(Fore.RED + str(r.json()['message']) + Fore.RESET)
         else:
@@ -90,7 +91,7 @@ class Apitator:
         if password == confirmpass:
             return password
         else:
-            Printator.success(Fore.RED + 'Password not match')
+            self.printator.success(Fore.RED + 'Password not match')
             return False
 
     def getSave(self):
