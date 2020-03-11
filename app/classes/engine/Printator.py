@@ -98,9 +98,9 @@ class Printator():
         else:
             return False
 
-    def saveFound(self, save, *action):
-        print("Save file found for :")
-        print(
+    def saveFound(self, save, action = None):
+        self.success('Save file found for :')
+        self.success(
             save["charName"]
             + " "
             + self.classes[int(save["charClassId"])]["name"]
@@ -108,14 +108,14 @@ class Printator():
             + str(save["charLevel"])
         )
         if action:
-            print("This action will be replace the save file with your actual game")
+            self.success("This action will be replace the save file with your actual game")
             action = input("Continue ? y/n ")
             if action == 'y':
                 return True
             else:
                 return False
         else:
-            print("Continue with this game ? y/n")
+            self.success("Continue with this game ? y/n")
             return True
 
     def saved(self):
