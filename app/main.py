@@ -8,7 +8,7 @@ from classes.engine.Fightator import Fightator
 from classes.engine.Lantator import Lantator
 from classes.engine.Apitator import Apitator
 
-class Game():
+class Game:
     """
         Game class
     """
@@ -16,14 +16,12 @@ class Game():
     def __init__(self):
         self.apitator = Apitator()
         self.classes = self.apitator.getClass()
+        self.printator = Printator(self.classes)
         self.apitator.login()
-        printator = Printator()
-        printator.resolution(60,40)
-        # Printator.resolution(60, 40)
+        self.printator.start(60,40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
-        Printator.init(Printator, self.classes)
-        Printator.loading(0, 20)
+        self.printator.loading(0, 20)
         if Saveator.init(Saveator) == True:
             self.showInformation()
         else:
