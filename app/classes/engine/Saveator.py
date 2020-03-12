@@ -35,52 +35,30 @@ class Saveator:
                 self.charLevel = save["charLevel"]
                 self.charExp = save["charExp"]
                 self.score = save["score"]
-                self.me = Character(self.charClassId)
+                self.me = Character(self.apitator,self.charClassId)
                 return True
             else:
                 return False
         else:
             return False
 
-    # def init(self):
-    #     data = Apitator.getSave(Apitator)
-    #     if data != False:
-    #         save = json.loads(str(data['save']['save_json']))
-    #         Printator.saveFound(Printator, save)
-    #         loadsave = input("> ")
-    #         if loadsave == "y":
-    #             self.charName = save["charName"]
-    #             self.charClassId = save["charClassId"]
-    #             self.charClass = save["charClass"]
-    #             self.charLevel = save["charLevel"]
-    #             self.charExp = save["charExp"]
-    #             self.score = save["score"]
-    #             self.me = Character(self.charClassId)
-    #             return True
-    #         else:
-    #             return False
-    #     else:
-    #         return False
-
     def choseName(self):
-        Printator.choseName()
+        self.printator.choseName()
         name = input("> ")
-        confirm = Printator.confirm(name, "as name")
+        confirm = self.printator.confirm(name, "as name")
         if confirm == True:
             self.charName = name
-            print("Your name is " + Fore.GREEN + "%s" %
-                  self.charName + Fore.RESET)
+            self.printator.success("Your name is " + Fore.GREEN + "{name}".format(name=self.charName))
             return True
         else:
-            self.choseName(self)
+            self.choseName()
 
     def choseClass(self):
         Settings.Addspace(Settings, 4)
-        # for i in range(len(self.classes)):
         for i in range(len(self.classes)):
-            Printator.classChose(i, self.classes)
+            self.printator.classChose(i, self.classes)
         Settings.Addspace(Settings, 2)
-        print("Choose your class : ")
+        self.printator.success('Choose your class : ')
         classChose = input("> ")
         if (
             classChose == "0"
@@ -89,20 +67,19 @@ class Saveator:
             or classChose == "3"
             or classChose == "4"
         ):
-            confirm = Printator.confirm(
+            confirm = self.printator.confirm(
                 self.classes[int(classChose)]["name"], "")
             if confirm == True:
                 self.charClass = int(classChose)
-                self.me = Character(self.charClass)
+                self.me = Character(self.apitator, self.charClass)
                 return True
             else:
-                self.choseClass(self)
+                self.choseClass()
         else:
-            self.choseClass(self)
+            self.choseClass()
 
     def updateStats(self):
-        with open('/app/settings/levels.json') as jsonLevel:
-            levels = json.load(jsonLevel)
+        levels = json.loads(self.apitator.getLevels())
         key = self.charLevel - 1
         addHp = levels[key]['hp']
         addAtk = levels[key]['atk']
