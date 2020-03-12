@@ -2,7 +2,7 @@ import sys
 import json
 
 
-class Settings():
+class Settings:
 
     validateTurns = [
         2,
@@ -35,18 +35,15 @@ class Settings():
     protect = 0
     lastAtk = 0
 
-    def resize():
+    def resize(self):
         sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=30, cols=50))
-
-    def debug(values = ''):
-        return print(values)
 
     def Addspace(self, nbrSpace):
         for i in range(nbrSpace):
             print('')
         return
 
-    def mainMenu():
+    def mainMenu(self):
         menu = [
             'Quick battle',
             'LAN',
@@ -56,7 +53,7 @@ class Settings():
         ]
         return menu
 
-    def options():
+    def options(self):
         options = [
             'Delete save',
             'Back'
