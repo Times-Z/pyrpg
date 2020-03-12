@@ -31,15 +31,17 @@ class Game:
             self.showInformation()
 
     def showInformation(self):
-        Printator.showInformations()
-        Printator.showMainTitle(
-            Saveator.charName, Saveator.me, Saveator.charLevel)
-        Saveator.updateStats(Saveator)
+        self.printator.showMainTitle(
+            self.saveator.charName,
+            self.saveator.me,
+            self.saveator.charLevel
+        )
+        self.saveator.updateStats()
         self.mainMenu()
 
     def mainMenu(self, jump = False):
         if jump == False:
-            choice = Printator.showMainMenu(Printator)
+            choice = self.printator.showMainMenu()
         else:
             choice = jump
         if choice == 0:
