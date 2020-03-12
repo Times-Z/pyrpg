@@ -119,7 +119,7 @@ class Apitator:
         else:
             return r.json()['message']
 
-    def getApiClass(self):
+    def requestClass(self):
         r = requests.get(self.ip + 'classes')
         if r.status_code == 200:
             return r.json()['classes']
@@ -127,7 +127,7 @@ class Apitator:
             return r.json()['message']
 
     def getClass(self, cID = False):
-        apiClass = self.getApiClass()
+        apiClass = self.requestClass()
         if cID == False:
             write = False
             with open('/app/settings/tmp.json', 'a') as f:
@@ -147,4 +147,39 @@ class Apitator:
                 return loads
         else:
             toDict = json.loads(apiClass[cID]['class_json'])
+            return loads
+    
+    def getLevels(self):
+        r = requests.get(self.ip + 'levels')
+        if r.status_code == 200:
+            levels = json.dumps(r.json()['levels'])
+            return levels
+        else:
+            return r.json()['message']
+    
+    def requestMonster(self):
+        r = requests.get(self.ip + 'monsters')
+        if r.status_code == 200:
+            monsters = json.dumps(r.json()['monsters'])
+            return monsters
+        else:
+            return r.json()['message']
+
+    def getMonster(self):
+        apiMonster = self.requestMonster()
+        write = False
+        with open('/app/settings/tmp.json', 'a') as f:
+            f.write('[')
+            for x in range (0,len(apiMonster)):
+                toDict = json.loads(apiMonster[x]['class_json'])
+                toJson = json.dump(toDict, f)
+                if x != (len(apiMonster) - 1):
+                    f.write(',')
+            f.write(']')
+            f.close()
+            write = True
+        if write == True:
+            with open('/app/settings/tmp.json', 'r') as f:
+                loads = json.load(f)
+            os.remove('/app/settings/tmp.json')
             return loads
