@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 import json
 import random
-# from classes.engine.Apitator import Apitator
-
 
 class Character:
+    """
+        - Type : str "player" or "monster"
+        - name : str
+        - maxHp : int
+        - hp : int
+        - atk : int
+        - acr : int
+        - defc : int
+        - spe : json string
+
+        for monster only :
+        - xp : int
+    """
 
     def __init__(self, api, charType):
         if charType == 'monster':
