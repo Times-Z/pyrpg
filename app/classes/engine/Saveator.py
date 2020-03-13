@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import json
-from classes.engine.Printator import Printator
-from settings.Settings import Settings
 from classes.char.Character import Character
-from classes.engine.Apitator import Apitator
 from colorama import Fore, Style, Back
 
 
@@ -89,7 +86,7 @@ class Saveator:
         return True
 
     def save(self):
-        data = self.apitator.getSave(Apitator)
+        data = self.apitator.getSave()
         if data != False:
             save = json.loads(str(data['save']['save_json']))
             action = self.printator.saveFound(save, 1)
@@ -102,7 +99,7 @@ class Saveator:
             else:
                 self.printator.addSpace(2)
                 self.printator.success(Fore.RED + 'Aborted')
-                self.printator.addSpace(Settings, 2)
+                self.printator.addSpace(2)
                 return False
         else:
             json_data = {
@@ -114,7 +111,7 @@ class Saveator:
                 "score": self.score,
             }
             data = json.dumps(json_data)
-            saved = self.apitator.save(Apitator, data)
+            saved = self.apitator.save(data)
             if saved == True:
                 self.printator.saved()
             else:
