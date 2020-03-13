@@ -3,6 +3,9 @@ import json
 
 
 class Settings:
+    """
+        Set some settings
+    """
 
     validateTurns = [
         2,
@@ -37,11 +40,6 @@ class Settings:
 
     def resize(self):
         sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=30, cols=50))
-
-    def Addspace(self, nbrSpace):
-        for i in range(nbrSpace):
-            print('')
-        return
 
     def mainMenu(self):
         menu = [
