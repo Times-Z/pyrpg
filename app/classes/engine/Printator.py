@@ -213,14 +213,14 @@ class Printator():
     def showMainMenu(self, space=False):
         self.settings = Settings()
         if space != False:
-            self.addspace(20)
+            self.addSpace(20)
         print("------------")
         print("| MAIN MENU |")
         print("------------")
-        self.addspace(2)
+        self.addSpace(2)
         for i in range(len(self.settings.mainMenu())):
             print(str(i) + " -> " + self.settings.mainMenu()[i])
-        self.addspace(2)
+        self.addSpace(2)
 
         action = input("> ")
 
