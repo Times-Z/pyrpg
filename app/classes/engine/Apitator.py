@@ -8,6 +8,9 @@ from colorama import Fore, Back, Style
 from classes.engine.Printator import Printator
 
 class Apitator:
+    """
+        Get data from api
+    """
 
     def __init__(self):
         self.printator = Printator()
