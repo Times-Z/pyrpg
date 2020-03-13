@@ -157,15 +157,15 @@ class Printator():
             return True
 
     def saved(self):
-        Settings.Addspace(Settings, 20)
+        self.addSpace(20)
         print(Fore.GREEN + "Game saved" + Fore.RESET)
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         return True
 
     def choseName(self):
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         print("- New game -")
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         print("Choose your name : ")
         return True
 
@@ -203,11 +203,11 @@ class Printator():
         print('| RPY   --   THE PYTHON ROLE PLAYING GAME |')
         print('|                                         |')
         print('-------------------------------------------')
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         print('Name  : ' + name)
         print('Class : ' + me.name)
         print('Level : ' + str(level))
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         return True
 
     def showMainMenu(self, space=False):
@@ -238,7 +238,7 @@ class Printator():
             return 10
 
     def showMenuOption(self):
-        Settings.Addspace(Settings, 20)
+        self.addSpace(20)
         print("-----------")
         print("| OPTIONS |")
         print("-----------")
@@ -271,10 +271,10 @@ class Printator():
 
     def success(self, string, space=0):
         if space != 0:
-            Settings.Addspace(Settings, space)
+            self.addSpace(space)
         print(string + Fore.RESET)
         if space != 0:
-            Settings.Addspace(Settings, space)
+            self.addSpace(space)
         return True
 
     def health(self, maxHealth, health):
@@ -294,7 +294,7 @@ class Printator():
 
     def battleInfo(self, turn, me, monster):
         print('Turn : ' + str(turn))
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         print("---------------------------------------------")
         print("You : ")
         Printator.health(me.maxHp, me.hp)
@@ -312,7 +312,7 @@ class Printator():
             )
         )
         print("---------------------------------------------")
-        Settings.Addspace(Settings, 1)
+        self.addSpace(1)
         return True
 
     def showBattleAction(self, useSpe, me, monster):
@@ -322,7 +322,7 @@ class Printator():
         print(" 2 -> Defend (%i %%)" % me.defc)
         print(" 3 -> Escape")
         print(" 4 -> pass")
-        Settings.Addspace(Settings, 1)
+        self.addSpace(1)
         action = input("> ")
         if action == "0":
             return 'attak'
@@ -330,9 +330,9 @@ class Printator():
             if useSpe == 0:
                 return 'spe'
             else:
-                Settings.Addspace(Settings, 1)
+                self.addSpace(1)
                 Printator.success('Bad entry')
-                Settings.Addspace(Settings, 1)
+                self.addSpace(1)
                 return False
         elif action == "2":
             return 'protect'
@@ -344,24 +344,24 @@ class Printator():
             return False
 
     def attak(self, atk, target):
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         print("Hit ! Hurt " + target.name)
         print("Decrease hp to " + str(target.hp))
         print(Fore.RED + " - " + str(atk) + " hp" + Fore.RESET)
         return True
 
     def useSpell(self, caster, spell, focus, target, alt, power, perso=False):
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         if perso == True:
             print(caster + ' use "' + spell + '" on ' + caster + '!')
         else:
             print(caster.name + ' use "' + spell + '" on ' + target.name + '!')
         print(Fore.YELLOW + alt + ' ' + str(power) + ' ' + focus + Fore.RESET)
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         return True
 
     def lanMenu(self):
-        Settings.Addspace(Settings, 30)
+        self.addSpace(30)
         print('0 -> Create lan')
         print('1 -> Join lan')
         print('2 -> Back')
