@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import requests
 import time
@@ -163,8 +164,7 @@ class Apitator:
     def requestMonster(self):
         r = requests.get(self.ip + 'monsters')
         if r.status_code == 200:
-            monsters = json.dumps(r.json()['monsters'])
-            return monsters
+            return r.json()['monsters']
         else:
             return r.json()['message']
 
@@ -174,7 +174,7 @@ class Apitator:
         with open('/app/settings/tmp.json', 'a') as f:
             f.write('[')
             for x in range (0,len(apiMonster)):
-                toDict = json.loads(apiMonster[x]['class_json'])
+                toDict = json.loads(apiMonster[x]['monster_json'])
                 toJson = json.dump(toDict, f)
                 if x != (len(apiMonster) - 1):
                     f.write(',')
