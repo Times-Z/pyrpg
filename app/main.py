@@ -31,11 +31,7 @@ class Game:
             self.showInformation()
 
     def showInformation(self):
-        self.printator.showMainTitle(
-            self.saveator.charName,
-            self.saveator.me,
-            self.saveator.charLevel
-        )
+        self.printator.showMainTitle(self.saveator)
         self.saveator.updateStats()
         self.mainMenu()
 
