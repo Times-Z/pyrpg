@@ -57,7 +57,7 @@ class Game:
             else:
                 self.mainMenu()
         elif choice == 3:
-            save = Saveator.save(Saveator)
+            save = self.saveator.save()
             if save != True:
                 self.mainMenu()
         elif choice == 10:
