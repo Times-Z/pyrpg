@@ -298,7 +298,7 @@ class Printator():
         self.addSpace(2)
         print("---------------------------------------------")
         print("You : ")
-        Printator.health(me.maxHp, me.hp)
+        self.health(me.maxHp, me.hp)
         print(
             "atk : {0} | def : {1} | acr : {2}".format(
                 me.atk, me.defc, me.acr
@@ -306,7 +306,7 @@ class Printator():
         )
         print("---------------------------------------------")
         print(monster.name + " :")
-        Printator.health(monster.maxHp, monster.hp)
+        self.health(monster.maxHp, monster.hp)
         print(
             "atk : {0} | def : {1} | acr : {2}".format(
                 monster.atk, monster.defc, monster.acr
