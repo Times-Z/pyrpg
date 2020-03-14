@@ -197,16 +197,17 @@ class Printator():
         )
         return True
 
-    def showMainTitle(self, name, me, level):
+    def showMainTitle(self, saveator):
+        self.saveator = saveator
         print('-------------------------------------------')
         print('|                                         |')
         print('| RPY   --   THE PYTHON ROLE PLAYING GAME |')
         print('|                                         |')
         print('-------------------------------------------')
         self.addSpace(2)
-        print('Name  : ' + name)
-        print('Class : ' + me.name)
-        print('Level : ' + str(level))
+        print('Name  : ' + self.saveator.charName)
+        print('Class : ' + self.saveator.me.name)
+        print('Level : ' + str(self.saveator.charLevel))
         self.addSpace(2)
         return True
 
