@@ -10,17 +10,17 @@ from classes.engine.Saveator import Saveator
 from settings.Settings import Settings
 
 # Fight engine
-class Fightator():
+class Fightator:
 
-    def init(self, me):
+    def __init__(self, api, me):
         self.end = 0
-        self.me = me
-        self.me.hp = self.me.maxHp
         self.turn = 1
         self.useSpe = 0
         self.protect = 0
         self.lastAtk = 0
-        self.monster = Character('monster')
+        self.me = me
+        self.me.hp = me.maxHp
+        self.monster = Character(api,'monster')
 
     def quickBattle(self, me):
         self.init(self, me)

@@ -41,7 +41,9 @@ class Game:
         else:
             choice = jump
         if choice == 0:
-            Fightator.quickBattle(Fightator, Saveator.me)
+            fightator = Fightator(self.apitator, self.saveator.me)
+            print(fightator.monster.name)
+            # Fightator.quickBattle(Fightator, Saveator.me)
             self.mainMenu()
         elif choice == 1:
             lan = Lantator.init(Lantator)
