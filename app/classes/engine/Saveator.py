@@ -18,7 +18,7 @@ class Saveator:
         self.printator = printator
         self.classes = classes
         self.apitator = api
-    
+
     def loadSave(self):
         data = self.apitator.getSave()
         if data != False:
@@ -32,7 +32,7 @@ class Saveator:
                 self.charLevel = save["charLevel"]
                 self.charExp = save["charExp"]
                 self.score = save["score"]
-                self.me = Character(self.apitator,self.charClassId)
+                self.me = Character(self.apitator, self.charClassId)
                 return True
             else:
                 return False
@@ -45,7 +45,8 @@ class Saveator:
         confirm = self.printator.confirm(name, "as name")
         if confirm == True:
             self.charName = name
-            self.printator.success("Your name is " + Fore.GREEN + "{name}".format(name=self.charName))
+            self.printator.success(
+                "Your name is " + Fore.GREEN + "{name}".format(name=self.charName))
             return True
         else:
             self.choseName()
@@ -91,7 +92,7 @@ class Saveator:
             save = json.loads(str(data['save']['save_json']))
             action = self.printator.saveFound(save, 1)
             if action == True:
-                rm = self.apitator.removeSave(Apitator)
+                rm = self.apitator.removeSave()
                 if rm == True:
                     self.save()
                 else:
@@ -125,7 +126,8 @@ class Saveator:
             if data != False:
                 rm = self.apitator.removeSave()
                 if rm == True:
-                    self.printator.success(Fore.GREEN + 'removing save file success')
+                    self.printator.success(
+                        Fore.GREEN + 'removing save file success')
                 else:
                     self.printator.success(Fore.RED + 'An error encountered')
                 self.printator.showMainMenu()
