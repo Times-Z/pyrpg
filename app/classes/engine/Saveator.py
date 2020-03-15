@@ -11,8 +11,8 @@ class Saveator:
         self.me = False
         self.charName = False
         self.charLevel = 1
-        self.charExp = False
-        self.charClassId = False
+        self.charExp = 0
+        self.charClassId = 0
         self.charClass = False
         self.score = 0
         self.printator = printator
@@ -68,8 +68,8 @@ class Saveator:
             confirm = self.printator.confirm(
                 self.classes[int(classChose)]["name"], "")
             if confirm == True:
-                self.charClass = int(classChose)
-                self.me = Character(self.apitator, self.charClass)
+                self.charClassId = int(classChose)
+                self.me = Character(self.apitator, self.charClassId)
                 return True
             else:
                 self.choseClass()
