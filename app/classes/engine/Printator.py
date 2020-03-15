@@ -243,7 +243,7 @@ class Printator():
         print("-----------")
         print("| OPTIONS |")
         print("-----------")
-        options = Settings.options()
+        options = Settings().options()
         for i in range(len(options)):
             print(str(i) + " -> " + options[i])
         action = input("> ")
