@@ -51,9 +51,10 @@ class Game:
             else:
                 self.mainMenu()
         elif choice == 2:
-            option = Printator.showMenuOption()
+            option = self.printator.showMenuOption()
             if option == 0:
-                Saveator.removeSave()
+                self.saveator.removeSave()
+                self.mainMenu()
             else:
                 self.mainMenu()
         elif choice == 3:

@@ -128,6 +128,7 @@ class Saveator:
                 if rm == True:
                     self.printator.success(
                         Fore.GREEN + 'removing save file success')
+                    return True
                 else:
                     self.printator.success(Fore.RED + 'An error encountered')
                 self.printator.showMainMenu()
