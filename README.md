@@ -21,8 +21,6 @@ Available tag :
 - stable
 - dev
 
-Replace port with unused port on your system
-
 Docker image from https://hub.docker.com/r/crashzeus/pyrpg
 
 ## Play localy
