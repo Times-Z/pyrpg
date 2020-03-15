@@ -101,10 +101,13 @@ class Apitator:
     def getSave(self):
         header = {'Authorization':'Bearer ' + self.token}
         r = requests.post(self.ip + 'getSave', headers=header)
-        if r.json()['save'] != None:
-            return r.json()
+        if r.status_code == 200:
+            if r.json()['save'] != None:
+                return r.json()
+            else:
+                return False
         else:
-            return False
+            return r.json()['message']
     
     def removeSave(self):
         header = {'Authorization':'Bearer ' + self.token}
