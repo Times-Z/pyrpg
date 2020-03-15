@@ -1,29 +1,29 @@
 # -*- coding: utf-8 -*-
 import os
 import json
-from classes.engine.Printator import Printator
-from settings.Settings import Settings
 from classes.char.Character import Character
-from classes.engine.Apitator import Apitator
 from colorama import Fore, Style, Back
 
 
-class Saveator():
+class Saveator:
 
-    me = False
-    charName = False
-    charLevel = 1
-    charExp = False
-    charClassId = False
-    charClass = False
-    score = 0
+    def __init__(self, printator, classes, api):
+        self.me = False
+        self.charName = False
+        self.charLevel = 1
+        self.charExp = False
+        self.charClassId = False
+        self.charClass = False
+        self.score = 0
+        self.printator = printator
+        self.classes = classes
+        self.apitator = api
 
-    def init(self):
-        self.classes = Apitator.getClass(Apitator)
-        data = Apitator.getSave(Apitator)
+    def loadSave(self):
+        data = self.apitator.getSave()
         if data != False:
             save = json.loads(str(data['save']['save_json']))
-            Printator.saveFound(Printator, save)
+            self.printator.saveFound(save)
             loadsave = input("> ")
             if loadsave == "y":
                 self.charName = save["charName"]
@@ -32,7 +32,7 @@ class Saveator():
                 self.charLevel = save["charLevel"]
                 self.charExp = save["charExp"]
                 self.score = save["score"]
-                self.me = Character(self.charClassId)
+                self.me = Character(self.apitator, self.charClassId)
                 return True
             else:
                 return False
@@ -40,24 +40,23 @@ class Saveator():
             return False
 
     def choseName(self):
-        Printator.choseName()
+        self.printator.choseName()
         name = input("> ")
-        confirm = Printator.confirm(name, "as name")
+        confirm = self.printator.confirm(name, "as name")
         if confirm == True:
             self.charName = name
-            print("Your name is " + Fore.GREEN + "%s" %
-                  self.charName + Fore.RESET)
+            self.printator.success(
+                "Your name is " + Fore.GREEN + "{name}".format(name=self.charName))
             return True
         else:
-            self.choseName(self)
+            self.choseName()
 
     def choseClass(self):
-        Settings.Addspace(Settings, 4)
-        # for i in range(len(self.classes)):
+        self.printator.addSpace(4)
         for i in range(len(self.classes)):
-            Printator.classChose(i, self.classes)
-        Settings.Addspace(Settings, 2)
-        print("Choose your class : ")
+            self.printator.classChose(i, self.classes)
+        self.printator.addSpace(2)
+        self.printator.success('Choose your class : ')
         classChose = input("> ")
         if (
             classChose == "0"
@@ -66,20 +65,19 @@ class Saveator():
             or classChose == "3"
             or classChose == "4"
         ):
-            confirm = Printator.confirm(
+            confirm = self.printator.confirm(
                 self.classes[int(classChose)]["name"], "")
             if confirm == True:
                 self.charClass = int(classChose)
-                self.me = Character(self.charClass)
+                self.me = Character(self.apitator, self.charClass)
                 return True
             else:
-                self.choseClass(self)
+                self.choseClass()
         else:
-            self.choseClass(self)
+            self.choseClass()
 
     def updateStats(self):
-        with open('/app/settings/levels.json') as jsonLevel:
-            levels = json.load(jsonLevel)
+        levels = json.loads(self.apitator.getLevels())
         key = self.charLevel - 1
         addHp = levels[key]['hp']
         addAtk = levels[key]['atk']
@@ -89,24 +87,24 @@ class Saveator():
         return True
 
     def save(self):
-        data = Apitator.getSave(Apitator)
+        data = self.apitator.getSave()
         if data != False:
             save = json.loads(str(data['save']['save_json']))
-            action = Printator.saveFound(Printator, save, 1)
+            action = self.printator.saveFound(save, 1)
             if action == True:
-                rm = Apitator.removeSave(Apitator)
+                rm = self.apitator.removeSave()
                 if rm == True:
-                    self.save(self)
+                    self.save()
                 else:
-                    Printator.success(Fore.RED + 'Error on delete save')
+                    self.printator.success(Fore.RED + 'Error on delete save')
             else:
-                Settings.Addspace(Settings, 2)
-                Printator.success(Fore.RED + 'Aborted')
-                Settings.Addspace(Settings, 2)
+                self.printator.addSpace(2)
+                self.printator.success(Fore.RED + 'Aborted')
+                self.printator.addSpace(2)
                 return False
         else:
             json_data = {
-                "charName": "{0}".format(self.charName),
+                "charName": "{name}".format(name=self.charName),
                 "charClassId": self.charClassId,
                 "charClass": self.classes[self.charClassId],
                 "charLevel": self.charLevel,
@@ -114,33 +112,34 @@ class Saveator():
                 "score": self.score,
             }
             data = json.dumps(json_data)
-            saved = Apitator.save(Apitator, data)
+            saved = self.apitator.save(data)
             if saved == True:
-                Printator.saved()
+                self.printator.saved()
             else:
-                Printator.success(str(saved))
+                self.printator.success(str(saved))
             return False
 
-    def removeSave():
-        remove = Printator.removeSave()
+    def removeSave(self):
+        remove = self.printator.removeSave()
         if remove == True:
-            data = Apitator.getSave(Apitator)
+            data = self.apitator.getSave()
             if data != False:
-                rm = Apitator.removeSave(Apitator)
+                rm = self.apitator.removeSave()
                 if rm == True:
-                    Printator.success(Fore.GREEN + 'removing save file success')
+                    self.printator.success(
+                        Fore.GREEN + 'removing save file success')
+                    return True
                 else:
-                    Printator.success(Fore.RED + 'An error encountered')
-                Printator.showMainMenu(Printator)
+                    self.printator.success(Fore.RED + 'An error encountered')
+                self.printator.showMainMenu()
             else:
-                Printator.success('No save file exist')
-                Printator.showMenuOption()
+                self.printator.success('No save file exist')
+                self.printator.showMenuOption()
         else:
-            Printator.showMainMenu(Printator)
+            self.printator.showMainMenu()
 
-    def checkLevel(level, xp):
-        with open('/app/settings/levels.json') as jsonLevel:
-            levels = json.load(jsonLevel)
+    def checkLevel(self, level, xp):
+        levels = json.loads(self.apitator.getLevels())
         key = level - 1
         xpNeed = levels[key]['toUp']
         if xp >= xpNeed:

@@ -9,37 +9,40 @@ from classes.engine.Lantator import Lantator
 from classes.engine.Apitator import Apitator
 
 class Game:
+    """
+        Game class
+    """
 
     def __init__(self):
-        Apitator.init(Apitator)
-        self.classes = Apitator.getClass(Apitator)
-        Apitator.login(Apitator)
-        Printator.resolution(60, 40)
+        self.apitator = Apitator()
+        self.classes = self.apitator.getClass()
+        self.printator = Printator(self.classes)
+        self.apitator.login()
+        self.printator.start(60,40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
-        Printator.init(Printator, self.classes)
-        Printator.loading(0, 20)
-        if Saveator.init(Saveator) == True:
+        self.printator.loading(0, 20)
+        self.saveator = Saveator(self.printator, self.classes, self.apitator)
+        if self.saveator.loadSave() == True:
             self.showInformation()
         else:
-            Saveator.choseName(Saveator)
-            Saveator.choseClass(Saveator)
+            self.saveator.choseName()
+            self.saveator.choseClass()
             self.showInformation()
 
     def showInformation(self):
-        Printator.showInformations()
-        Printator.showMainTitle(
-            Saveator.charName, Saveator.me, Saveator.charLevel)
-        Saveator.updateStats(Saveator)
+        self.printator.showMainTitle(self.saveator)
+        self.saveator.updateStats()
         self.mainMenu()
 
     def mainMenu(self, jump = False):
         if jump == False:
-            choice = Printator.showMainMenu(Printator)
+            choice = self.printator.showMainMenu()
         else:
             choice = jump
         if choice == 0:
-            Fightator.quickBattle(Fightator, Saveator.me)
+            fightator = Fightator(self.apitator, self.saveator, self.printator)
+            fightator.quickBattle()
             self.mainMenu()
         elif choice == 1:
             lan = Lantator.init(Lantator)
@@ -48,13 +51,14 @@ class Game:
             else:
                 self.mainMenu()
         elif choice == 2:
-            option = Printator.showMenuOption()
+            option = self.printator.showMenuOption()
             if option == 0:
-                Saveator.removeSave()
+                self.saveator.removeSave()
+                self.mainMenu()
             else:
                 self.mainMenu()
         elif choice == 3:
-            save = Saveator.save(Saveator)
+            save = self.saveator.save()
             if save != True:
                 self.mainMenu()
         elif choice == 10:

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import time
+import json
 from colorama import Fore, Back, Style
 from settings.Settings import Settings
 
@@ -8,45 +9,87 @@ from settings.Settings import Settings
 
 
 class Printator():
+    """
+        Display class
+        - Use success function to print
+    """
 
-    def resolution(col, row):
+    def __init__(self, classes = None):
+        if classes is not None:
+            self.classes = classes
+
+    def debug(self, value = ''):
+        valType = type(value).__name__
+        data = {
+            'Type' : valType,
+            'Content': str(value)
+        }
+        data = json.dumps(data, indent=4)
+        return print(data)
+
+    def addSpace(self, space = 1):
+        for i in range(space):
+            print('')
+        return True
+
+    def start(self, col, row):
         print('Recommended resolution of terminal is : ')
         print(' ' + str(col) + ' X ' + str(row))
         input('[press enter to continue]')
-
-    def init(self, classes):
-        self.classes = classes
         print("""
-            .=========================================.
-            |                                         |
-            |              .::::::::::.               |
-            |            .::``::::::::::.             |
-            |            :::..:::::::::::             |
-            |            ````````::::::::             |
-            |    .::::::::::::::::::::::: iiiiiii,    |
-            | .:::::::::::::::::::::::::: iiiiiiiii.  |
-            | ::::::::::::::::::::::::::: iiiiiiiiii  |
-            | ::::::::::::::::::::::::::: iiiiiiiiii  |
-            | :::::::::: ,,,,,,,,,,,,,,,,,iiiiiiiiii  |
-            | :::::::::: iiiiiiiiiiiiiiiiiiiiiiiiiii  |
-            | `::::::::: iiiiiiiiiiiiiiiiiiiiiiiiii`  |
-            |    `:::::: iiiiiiiiiiiiiiiiiiiiiii`     |
-            |            iiiiiiii,,,,,,,,             |
-            |            iiiiiiiiiii''iii             |
-            |            `iiiiiiiiii..ii`             |
-            |              `iiiiiiiiii`               |
-            |                                         |
-            |    ____        _   _                    |
-            |   |  _ \ _   _| |_| |__   ___  _ __     |
-            |   | |_) | | | | __| '_ \ / _ \| '_ \    |
-            |   |  __/| |_| | |_| | | | (_) | | | |   |
-            |   |_|    \__, |\__|_| |_|\___/|_| |_|   |
-            |          |___/                          |
-            |                                         |
-            '========================================='
+                                                    @&@@&@@@@                                       
+                                               @@@@@#########@@&@@@@,                               
+                                          @@&@@#####################&@&                             
+                                     (@@@@##############&@@#########&@&                             
+                                   @@#####@@&###########%@@#######@@,                               
+                                 @@##########@@######%#####@@####%@@,                               
+                              &@@%%#%%@@%%#%#@@#%#%#%%#%#%#@@#%#%%@@,                               
+                              @@@%%#%#%#@@#%#%#@@#%#%%#%#%#@@#%#%#@@,                               
+                            @@(%#@@#%(%#@@@@&@@@@@@@@@@@&@@@@#%#%#@@,                               
+                          ,,&&(%###&&%&&///(////(/(///*///*&&#%###&&,                               
+                         ,&&%%%&&####(################*///*#######&&,                               
+                          ,,&@///**((/******/*******//%%(******/**@@#%#                             
+                         ,@@**/******/******/***********%@@****/**@@/**@@                           
+                       @&&****#(#****/******************%@@*******@@/****@@/                        
+                     @@*****#(&@@##**/*********************@@@&&@@@@/******#@@                      
+                  (@@*******#(&&@((**/****************************************@@                    
+                  (@@**#((****#(#@@#(/****************@@&&@@@@@&@@@&&@&*******@&                    
+                @@#***********/**((**/***********&@@@&@@&@@*********&@&@@@@#****@@#                 
+                @@#***********/******/******/@&@@@@@*********************@@&@@**@@#                 
+                @@#***********/******/**@@@@&@@*********(##@@*****************@@**(@@               
+                @@#**@@@@&@@@@&@@@@@@&@@@@**************(##@@*********************(@@               
+             .@@*****/******/********/********/*******##%@@##*********/*******/***(@@               
+             .@@****//*****//****//**/*//*****//****//**(##//****//***///*****//**(@@               
+             .@@*/*////***//////*//*///*@@@@&@@@@@@@@@*/*/*/(***////**/(/*/*/*/(**(@@               
+             .@@*(*(*/(*(/%##%*(*(/*(#@@*/,/*/,,/,/,**@@&@@/(*(*(**(&@&@@@@&@@/(*((@@               
+             .@@*(#@@*/*(/%##%*(***@@(*.@@@@&*..*,*,*,,/*/.@@*(*/*@@*/,*,.*,*.@@,/(@@               
+             .@@*///*&&*///**///*&&,*(&&...,,@@@@&&&*,,***,&&*///*&&****,&&&@&&&&&#                 
+                &&(//&&*/////////&&**(&&..,,,....%&%&&(((((&&////*&&(((((&&/..&&&&(                 
+                @@(**//&&%****/**//&&(**&&..,....,.,....(&&@@**/**@@,.,....(&&@@&@#                 
+                  (@@**@@%****/******#@@,,&@&@@@@@@@@@@@/,,,,@@&@@,,%@&@@@@&@@**@@#                 
+                  (@@**@@&****#(#****/**@@@@&@@@@@@@@@@@/,,,,,,*,,,,,,,@@*******@@#                 
+                     @@*,*****#(#**#(/*****,**********@&/.,,,,.*,,,,*.,@@*******@&#                 
+                       @&&,***/,***#(/,****,/(#*,*,***@&/.,,,,.*..,.,.,@@*,*,***@&#                 
+                         ,@@**/******/****************@@/,.@@@@&@@@@*,,@@*******@@#                 
+                            @@&@@****/****##(((*******@@&@@,,,,*,.,,*,,@@*******@@#                 
+                                 @@@@(****##(((*******@@/,,,,,,*,,@@&@&@@*****@@                    
+                                   @@&@@@@************@@&@@@@@@&@@@@&@&@@*****@@                    
+                                 @@,,*,,,,@@&@@*******@@(**@@*****@@&@&@@**#@@                      
+                                 @@,,*,,,,@@&*/@@@@@@@@@(****@@%**,%/@&@@@@/                        
+                              &@@,,,,*,,,,@@&*/@@/***/*****/*@@%*/%%%%#@@                           
+                              &@@@@@@&@@@@@@&//@@/**//***/*@@@@%/**/&@&//@@/                        
+                            @@*/*//*///*//@@&/**/&@@//*/%@@//*/(@@*/&@&@@@@/                        
+                            @@&@@@@@@&@@@@@@&@@@@@@@@@@@(/*//*/*/**/%@&**@@/                        
+                            @@**,*,,***,,*&@%////&@@///(/(*&&&&%&&//%@&&&@@/                        
+                            (((((*********&&%####%&&#######(((((((##%&%((((,                        
+                              ***%%%%#%%%%///////%%%////#%%///////%%**,*,                           
+                                     (@@@@@@&@@@@&@&@@@@&@@@@@@&@@@@,                               
+                                     (@@@@@@&@@@@@@@  @@@@@@@@@&@@@@,                               
+                                     (@@****/****&@@  @@(*********@@,                               
+                                     (&@@&@%&&@@&@&@  @&&&@@&@%&&@@&,                               
         """)
 
-    def loading(valmin, valmax, mess=''):
+    def loading(self, valmin, valmax, mess = ''):
         os.system('setterm -cursor off')
         begin = "["
         close = "]"
@@ -83,8 +126,8 @@ class Printator():
         return True
 
     def logMenu(self):
-        Printator.success('0 -> Signin')
-        Printator.success('1 -> Sigup')
+        self.success('0 -> Signin')
+        self.success('1 -> Sigup')
         choice = input('> ')
         if choice == '0':
             return 'signin'
@@ -93,9 +136,9 @@ class Printator():
         else:
             return False
 
-    def saveFound(self, save, *action):
-        print("Save file found for :")
-        print(
+    def saveFound(self, save, action = None):
+        self.success('Save file found for :')
+        self.success(
             save["charName"]
             + " "
             + self.classes[int(save["charClassId"])]["name"]
@@ -103,30 +146,30 @@ class Printator():
             + str(save["charLevel"])
         )
         if action:
-            print("This action will be replace the save file with your actual game")
+            self.success("This action will be replace the save file with your actual game")
             action = input("Continue ? y/n ")
             if action == 'y':
                 return True
             else:
                 return False
         else:
-            print("Continue with this game ? y/n")
+            self.success("Continue with this game ? y/n")
             return True
 
-    def saved():
-        Settings.Addspace(Settings, 20)
+    def saved(self):
+        self.addSpace(20)
         print(Fore.GREEN + "Game saved" + Fore.RESET)
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         return True
 
-    def choseName():
-        Settings.Addspace(Settings, 2)
+    def choseName(self):
+        self.addSpace(2)
         print("- New game -")
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         print("Choose your name : ")
         return True
 
-    def confirm(param, string):
+    def confirm(self, param, string):
         confirm = input(
             'Do you really want "'
             + Fore.RED
@@ -142,7 +185,7 @@ class Printator():
         else:
             return False
 
-    def classChose(i, classes):
+    def classChose(self, i, classes):
         print(
             str(i)
             + " -> "
@@ -154,33 +197,31 @@ class Printator():
         )
         return True
 
-    def showInformations():
-        Settings.Addspace(Settings, 10)
-        return True
-
-    def showMainTitle(name, me, level):
+    def showMainTitle(self, saveator):
+        self.saveator = saveator
         print('-------------------------------------------')
         print('|                                         |')
         print('| RPY   --   THE PYTHON ROLE PLAYING GAME |')
         print('|                                         |')
         print('-------------------------------------------')
-        Settings.Addspace(Settings, 2)
-        print('Name  : ' + name)
-        print('Class : ' + me.name)
-        print('Level : ' + str(level))
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
+        print('Name  : ' + self.saveator.charName)
+        print('Class : ' + self.saveator.me.name)
+        print('Level : ' + str(self.saveator.charLevel))
+        self.addSpace(2)
         return True
 
     def showMainMenu(self, space=False):
+        self.settings = Settings()
         if space != False:
-            Settings.Addspace(Settings, 20)
+            self.addSpace(20)
         print("------------")
         print("| MAIN MENU |")
         print("------------")
-        Settings.Addspace(Settings, 2)
-        for i in range(len(Settings.mainMenu())):
-            print(str(i) + " -> " + Settings.mainMenu()[i])
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
+        for i in range(len(self.settings.mainMenu())):
+            print(str(i) + " -> " + self.settings.mainMenu()[i])
+        self.addSpace(2)
 
         action = input("> ")
 
@@ -197,12 +238,12 @@ class Printator():
         else:
             return 10
 
-    def showMenuOption():
-        Settings.Addspace(Settings, 20)
+    def showMenuOption(self):
+        self.addSpace(20)
         print("-----------")
         print("| OPTIONS |")
         print("-----------")
-        options = Settings.options()
+        options = Settings().options()
         for i in range(len(options)):
             print(str(i) + " -> " + options[i])
         action = input("> ")
@@ -212,7 +253,7 @@ class Printator():
         elif action == "1":
             return 99
 
-    def removeSave():
+    def removeSave(self):
         print(Fore.RED + "/!\ " + Fore.RESET +
               " WARNING " + Fore.RED + " /!\ ")
         print(
@@ -229,15 +270,15 @@ class Printator():
         else:
             return False
 
-    def success(string, space=0):
+    def success(self, string, space=0):
         if space != 0:
-            Settings.Addspace(Settings, space)
+            self.addSpace(space)
         print(string + Fore.RESET)
         if space != 0:
-            Settings.Addspace(Settings, space)
+            self.addSpace(space)
         return True
 
-    def health(maxHealth, health):
+    def health(self, maxHealth, health):
         healthDashes = 20
         dashConvert = int(maxHealth/healthDashes)
         currentDashes = int(health/dashConvert)
@@ -252,12 +293,12 @@ class Printator():
             color = Fore.RED
         print("|" + color + healthDisplay + Fore.RESET + remainingDisplay + "| " + str(health) + ' / ' + str(maxHealth))
 
-    def battleInfo(turn, me, monster):
+    def battleInfo(self, turn, me, monster):
         print('Turn : ' + str(turn))
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         print("---------------------------------------------")
         print("You : ")
-        Printator.health(me.maxHp, me.hp)
+        self.health(me.maxHp, me.hp)
         print(
             "atk : {0} | def : {1} | acr : {2}".format(
                 me.atk, me.defc, me.acr
@@ -265,24 +306,24 @@ class Printator():
         )
         print("---------------------------------------------")
         print(monster.name + " :")
-        Printator.health(monster.maxHp, monster.hp)
+        self.health(monster.maxHp, monster.hp)
         print(
             "atk : {0} | def : {1} | acr : {2}".format(
                 monster.atk, monster.defc, monster.acr
             )
         )
         print("---------------------------------------------")
-        Settings.Addspace(Settings, 1)
+        self.addSpace(1)
         return True
 
-    def showBattleAction(useSpe, me, monster):
+    def showBattleAction(self, useSpe, me, monster):
         print(" 0 -> Attak " + monster.name)
         if useSpe == 0:
             print(" 1 -> Special : %s " % me.spe['name'])
         print(" 2 -> Defend (%i %%)" % me.defc)
         print(" 3 -> Escape")
         print(" 4 -> pass")
-        Settings.Addspace(Settings, 1)
+        self.addSpace(1)
         action = input("> ")
         if action == "0":
             return 'attak'
@@ -290,9 +331,9 @@ class Printator():
             if useSpe == 0:
                 return 'spe'
             else:
-                Settings.Addspace(Settings, 1)
+                self.addSpace(1)
                 Printator.success('Bad entry')
-                Settings.Addspace(Settings, 1)
+                self.addSpace(1)
                 return False
         elif action == "2":
             return 'protect'
@@ -303,25 +344,25 @@ class Printator():
         else:
             return False
 
-    def attak(atk, target):
-        Settings.Addspace(Settings, 2)
+    def attak(self, atk, target):
+        self.addSpace(2)
         print("Hit ! Hurt " + target.name)
         print("Decrease hp to " + str(target.hp))
         print(Fore.RED + " - " + str(atk) + " hp" + Fore.RESET)
         return True
 
-    def useSpell(caster, spell, focus, target, alt, power, perso=False):
-        Settings.Addspace(Settings, 2)
+    def useSpell(self, caster, spell, focus, target, alt, power, perso=False):
+        self.addSpace(2)
         if perso == True:
             print(caster + ' use "' + spell + '" on ' + caster + '!')
         else:
             print(caster.name + ' use "' + spell + '" on ' + target.name + '!')
         print(Fore.YELLOW + alt + ' ' + str(power) + ' ' + focus + Fore.RESET)
-        Settings.Addspace(Settings, 2)
+        self.addSpace(2)
         return True
 
     def lanMenu(self):
-        Settings.Addspace(Settings, 30)
+        self.addSpace(30)
         print('0 -> Create lan')
         print('1 -> Join lan')
         print('2 -> Back')
