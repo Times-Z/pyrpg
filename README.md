@@ -14,12 +14,13 @@ The python command line rpg
 ## Play image from docker hub
 
 ```bash 
-    docker run -p {PORT}:8080 -it crashzeus/pyrpg:tag
+    docker run -it crashzeus/pyrpg:tag
 ```
 Available tag :
 - latest (develop only)
 - stable
 - dev
+
 Replace port with unused port on your system
 
 Docker image from https://hub.docker.com/r/crashzeus/pyrpg
