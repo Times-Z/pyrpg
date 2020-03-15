@@ -168,7 +168,7 @@ class Fightator:
             self.printator.success(self.monster.name + ' protect him !')
             self.protectAction(self.monster)
         elif action == 3:
-            if self.turn in self.settings.validateTurns:
+            if self.settings.validateTurn(self.turn) == True:
                 self.printator.success(self.monster.name + ' use a special spell !')
                 self.spell(self.monster)
                 self.protect = 0
