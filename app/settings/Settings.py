@@ -1,62 +1,26 @@
+# -*- coding: utf-8 -*-
 import sys
 import json
 
 
-class Settings():
+class Settings:
+    """
+        Set some settings
+    """
 
-    validateTurns = [
-        2,
-        4,
-        6,
-        8,
-        10,
-        12,
-        14,
-        16,
-        18,
-        20,
-        22,
-        24,
-        28,
-        30,
-        32,
-        34,
-        38,
-        40,
-        42,
-        44,
-        48,
-        50,
-        52,
-        54,
-        58,
-        60
-    ]
     protect = 0
     lastAtk = 0
 
-    def resize():
+    def validateTurn(self, turn):
+        if (turn%2) == 0:
+            return True
+        else:
+            return False
+
+    def resize(self):
         sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=30, cols=50))
 
-    def debug(*values):
-        return print(values)
-
-    def loadSave():
-        with open('/app/save/save.json', 'r') as save:
-            load_save = json.load(save)
-        return load_save
-
-    def loadClass(self):
-        with open('/app/settings/classes.json', 'r') as f:
-            load_class = json.load(f)
-        return load_class
-
-    def Addspace(self, nbrSpace):
-        for i in range(nbrSpace):
-            print('')
-        return
-
-    def mainMenu():
+    def mainMenu(self):
         menu = [
             'Quick battle',
             'LAN',
@@ -66,7 +30,7 @@ class Settings():
         ]
         return menu
 
-    def options():
+    def options(self):
         options = [
             'Delete save',
             'Back'

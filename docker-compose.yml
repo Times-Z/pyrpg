@@ -1,8 +1,18 @@
-version: '3'
+version: "3"
+networks:
+  net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+
 services:
-  pyrpg:
-    build: ./
-    container_name: pyrpg
-    volumes:
-      - ./app/:/app/
+  game:
+    # image: crashzeus/pyrpg:dev
+    build: .
+    container_name: game
+    stdin_open: true
     tty: true
+    networks:
+      - net
+    entrypoint: python3 /app/main.py

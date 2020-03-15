@@ -2,13 +2,24 @@
 import json
 import random
 
-
 class Character:
+    """
+        - Type : str "player" or "monster"
+        - name : str
+        - maxHp : int
+        - hp : int
+        - atk : int
+        - acr : int
+        - defc : int
+        - spe : json string
 
-    def __init__(self, charType):
+        for monster only :
+        - xp : int
+    """
+
+    def __init__(self, api, charType):
         if charType == 'monster':
-            with open('/app/settings/monsters.json') as f:
-                data = json.load(f)
+            data = api.getMonster()
             monster = random.choice(data)
             self.type = 'monster'
             self.name = monster['name']
@@ -20,8 +31,7 @@ class Character:
             self.spe = monster['spell']
             self.xp = random.randint(monster['expMin'], monster['expMax'])
         else:
-            with open("/app/settings/classes.json", "r") as f:
-                self.charClass = json.load(f)
+            self.charClass = api.getClass()
             this = self.charClass[charType]
             self.type = 'player'
             self.id = charType

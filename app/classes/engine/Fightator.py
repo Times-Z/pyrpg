@@ -5,67 +5,65 @@ import time
 import random
 from colorama import Fore, Back, Style
 from classes.char.Character import Character
-from classes.engine.Printator import Printator
-from classes.engine.Saveator import Saveator
 from settings.Settings import Settings
 
 # Fight engine
-class Fightator():
+class Fightator:
 
-    def init(self, me):
+    def __init__(self, api, saveator, printator):
+        self.printator = printator
+        self.saveator = saveator
+        self.settings = Settings()
         self.end = 0
-        self.me = me
-        self.me.hp = self.me.maxHp
         self.turn = 1
         self.useSpe = 0
         self.protect = 0
         self.lastAtk = 0
-        self.monster = Character('monster')
+        self.me = self.saveator.me
+        self.me.hp = self.me.maxHp
+        self.monster = Character(api,'monster')
 
-    def quickBattle(self, me):
-        self.init(self, me)
-        Settings.Addspace(Settings, 20)
-        Printator.battleInfo(self.turn, self.me, self.monster)
-        self.battleAction(self)
+    def quickBattle(self):
+        self.printator.addSpace(20)
+        self.printator.battleInfo(self.turn, self.me, self.monster)
+        self.battleAction()
         return 0
 
-    # Add lanbattle function
-
     def battleAction(self):
-        action = Printator.showBattleAction(self.useSpe, self.me, self.monster)
+        action = self.printator.showBattleAction(self.useSpe, self.me, self.monster)
         if action == 'attak':
-            hp = self.attak(self, self.me, self.monster)
+            hp = self.attak(self.me, self.monster)
             if hp > 0:
                 self.monster.hp = hp
-                Printator.attak(self.lastAtk, self.monster)
-                Settings.Addspace(Settings, 2)
-                self.cpuTurn(self)
+                self.printator.attak(self.lastAtk, self.monster)
+                self.printator.addSpace(2)
+                self.cpuTurn()
             else:
                 self.end = 1
-                win = self.win(self)
+                win = self.win()
                 return 0
         elif action == 'protect':
-            self.protectAction(self, self.me)
-            self.cpuTurn(self)
+            self.protectAction(self.me)
+            self.cpuTurn()
         elif action == 'spe':
             if self.useSpe == 0:
-                self.spell(self, self.me)
-                self.cpuTurn(self)
+                self.spell(self.me)
+                self.cpuTurn()
             else:
-                Printator.success('Bad entry', 2)
-                self.battleAction(self)
+                self.printator.success("\x1B[3mBad entry\x1B[23m", 2)
+                self.battleAction()
         elif action == 'escape':
-            escape = self.escape(self)
+            escape = self.escape()
             if escape == True:
                 self.end = 1
                 return 0
             else:
-                self.cpuTurn(self)
+                self.cpuTurn()
         elif action == 'pass':
-            self.cpuTurn(self)
+            self.cpuTurn()
         elif action == False:
-            Printator.success('Bad entry', 2)
-            self.battleAction(self)
+            self.printator.success("\x1B[3mBad entry\x1B[23m", 2)
+            self.battleAction()
 
     def attak(self, caster, target):
         if self.protect == 0:
@@ -107,35 +105,35 @@ class Fightator():
             spellPower = random.randint(
                 caster.spe['effect']['minRange'], caster.spe['effect']['maxRange'])
             if spellTarget == 'self':
-                Printator.useSpell(self.monster.name, spellName, spellFocus,
+                self.printator.useSpell(self.monster.name, spellName, spellFocus,
                                    self.monster.name, spellAlterate, spellPower, True)
             else:
-                Printator.useSpell(caster, spellName, spellFocus,
-                                   Saveator.me, spellAlterate, spellPower)
+                self.printator.useSpell(caster, spellName, spellFocus,
+                                   self.me, spellAlterate, spellPower)
         else:
             spellPower = caster.spe['effect']['value']
             if spellTarget == 'self':
-                Printator.useSpell(Saveator.charName, spellName, spellFocus,
-                                   Saveator.charName, spellAlterate, spellPower, True)
+                self.printator.useSpell(self.saveator.charName, spellName, spellFocus,
+                                   self.saveator.charName, spellAlterate, spellPower, True)
             else:
-                Printator.useSpell(caster, spellName, spellFocus,
+                self.printator.useSpell(caster, spellName, spellFocus,
                                    self.monster, spellAlterate, spellPower)
             self.useSpe += 1
 
         if caster.type == 'monster':
             if spellTarget == 'self':
-                self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
+                self.calcSpell(caster, spellFocus, spellAlterate, spellPower)
                 return True
             else:
-                self.calcSpell(self, self.me, spellFocus,
+                self.calcSpell(self.me, spellFocus,
                             spellAlterate, spellPower)
                 return True
         else:
             if spellTarget == 'self':
-                self.calcSpell(self, caster, spellFocus, spellAlterate, spellPower)
+                self.calcSpell(caster, spellFocus, spellAlterate, spellPower)
                 return True
             else:
-                self.calcSpell(self, self.monster, spellFocus,
+                self.calcSpell(self.monster, spellFocus,
                             spellAlterate, spellPower)
                 return True
 
@@ -148,70 +146,70 @@ class Fightator():
         if focus == 'hp':
             if spell > target.maxHp:
                 spell = target.maxHp
-                Printator.success('Healing cannot exceed max HP', 1)
-                Printator.success(Fore.GREEN + 'Hp full' + Fore.RESET, 1)
+                self.printator.success('Healing cannot exceed max HP', 1)
+                self.printator.success(Fore.GREEN + 'Hp full', 1)
         setattr(target, focus, spell)
         return True
 
     def cpuTurn(self):
-        Printator.success(self.monster.name + ' playing...')
-        Printator.loading(0, 10)
+        self.printator.success(self.monster.name + ' playing...')
+        self.printator.loading(0, 10)
         action = random.randint(1, 3)
         if action == 1:
-            Printator.success(self.monster.name + ' attak !')
-            hp = self.attak(self, self.monster, self.me)
+            self.printator.success(self.monster.name + ' attak !')
+            hp = self.attak(self.monster, self.me)
             if hp > 0:
                 self.me.hp = hp
-                Printator.attak(self.lastAtk, self.me)
+                self.printator.attak(self.lastAtk, self.me)
                 self.protect = 0
             else:
                 self.gameOver(self)
         elif action == 2:
-            Printator.success(self.monster.name + ' protect him !')
-            self.protectAction(self, self.monster)
+            self.printator.success(self.monster.name + ' protect him !')
+            self.protectAction(self.monster)
         elif action == 3:
-            if self.turn in Settings.validateTurns:
-                Printator.success(self.monster.name + ' use a special spell !')
-                self.spell(self, self.monster)
+            if self.settings.validateTurn(self.turn) == True:
+                self.printator.success(self.monster.name + ' use a special spell !')
+                self.spell(self.monster)
                 self.protect = 0
                 # TODO
             else:
-                Printator.success('Bad entry')
-                self.cpuTurn(self)
+                self.printator.success("\x1B[3mBad entry\x1B[23m")
+                self.cpuTurn()
         if self.end == 1:
             return 0
         self.turn += 1
-        Printator.battleInfo(self.turn, self.me, self.monster)
-        self.battleAction(self)
+        self.printator.battleInfo(self.turn, self.me, self.monster)
+        self.battleAction()
 
     def escape(self):
-        Printator.success('Rolling dice...')
-        Printator.loading(0, 5)
+        self.printator.success('Rolling dice...')
+        self.printator.loading(0, 5)
         dice = random.randint(1, 6)
         if dice == 6:
-            Printator.success(Fore.GREEN + 'Escape success' + Fore.RESET, 2)
+            self.printator.success(Fore.GREEN + 'Escape success', 2)
             return True
         else:
-            Printator.success(Fore.RED + 'Escape failed' + Fore.RESET, 2)
+            self.printator.success(Fore.RED + 'Escape failed', 2)
             return False
 
     def win(self):
-        Saveator.charExp += self.monster.xp
-        level = Saveator.checkLevel(Saveator.charLevel, Saveator.charExp)
-        Settings.Addspace(Settings, 2)
-        Printator.success('Exp win : ' + Fore.GREEN +
-                          str(self.monster.xp) + Fore.RESET)
-        Printator.success('Total exp : ' + Fore.GREEN +
-                          str(Saveator.charExp) + Fore.RESET)
-        Settings.Addspace(Settings, 2)
+        self.saveator.charExp += self.monster.xp
+        level = self.saveator.checkLevel(self.saveator.charLevel, self.saveator.charExp)
+        self.printator.addSpace(2)
+        self.printator.success('Exp win : ' + Fore.GREEN +
+                          str(self.monster.xp))
+        self.printator.success('Total exp : ' + Fore.GREEN +
+                          str(self.saveator.charExp))
+        self.printator.addSpace(2)
         if level == True:
-            Saveator.charLevel += 1
-            Saveator.updateStats(Saveator)
-            Printator.success(Fore.GREEN + 'Level up !' + Fore.RESET)
-            Printator.success('Level : ' + str(Saveator.charLevel), 2)
+            self.saveator.charLevel += 1
+            self.saveator.updateStats()
+            self.printator.success(Fore.GREEN + 'Level up !')
+            self.printator.success('Level : ' + str(self.saveator.charLevel), 2)
         return 0
 
     def gameOver(self):
-        Printator.success(Fore.RED + ' GAME OVER ! ' + Fore.RESET)
+        self.printator.success(Fore.RED + ' GAME OVER ! ')
         self.end = 1
         sys.exit('Quit game, you die')
