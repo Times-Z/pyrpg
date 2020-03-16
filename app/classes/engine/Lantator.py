@@ -6,6 +6,16 @@ from classes.engine.Printator import Printator
 
 class Lantator:
 
+    def __init__(self, printator):
+        self.printator = printator
+        self.host = '127.0.0.1' 
+        self.port = '8000'
+
+    def choice(self):
+        menu = self.printator.lanMenu()
+        return menu
+
+
     def init(self):
         self.host = '127.0.0.1'
         menu = Printator.lanMenu(Printator)
