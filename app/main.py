@@ -45,10 +45,13 @@ class Game:
             fightator.quickBattle()
             self.mainMenu()
         elif choice == 1:
-            lan = Lantator.init(Lantator)
-            if lan == False:
-                self.mainMenu(1)
-            else:
+            lan = Lantator(self.printator)
+            choice = lan.choice()
+            if choice == 'host':
+                lan.host()
+            elif choice == 'join':
+                lan.join()
+            elif choice == 'back':
                 self.mainMenu()
         elif choice == 2:
             option = self.printator.showMenuOption()
