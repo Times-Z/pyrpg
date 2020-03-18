@@ -15,7 +15,7 @@ class Lantator:
         menu = self.printator.lanMenu()
         return menu
 
-    def host(self):
+    def hoster(self):
         self.printator.success('Choose port number :')
         self.port = input('> ')
         self.mainConnection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -39,7 +39,7 @@ class Lantator:
             except Exception as e:
                 print(e)
 
-    def join(self):
+    def joiner(self):
         self.printator.success('Enter port number :')
         self.port = input('> ')
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

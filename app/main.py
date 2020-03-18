@@ -48,9 +48,9 @@ class Game:
             lan = Lantator(self.printator)
             choice = lan.choice()
             if choice == 'host':
-                lan.host()
+                lan.hoster()
             elif choice == 'join':
-                lan.join()
+                lan.joiner()
             elif choice == 'back':
                 self.mainMenu()
         elif choice == 2:
