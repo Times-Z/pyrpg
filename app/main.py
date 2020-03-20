@@ -8,6 +8,7 @@ from classes.engine.Fightator import Fightator
 from classes.engine.Lantator import Lantator
 from classes.engine.Apitator import Apitator
 
+
 class Game:
     """
         Game class
@@ -18,12 +19,12 @@ class Game:
         self.classes = self.apitator.getClass()
         self.printator = Printator(self.classes)
         self.apitator.login()
-        self.printator.start(60,40)
+        self.printator.start(60, 40)
         # Goes wrong with some console : include kde konsole, fix exist ?
         # Settings.resize()
         self.printator.loading(0, 20)
         self.saveator = Saveator(self.printator, self.classes, self.apitator)
-        if self.saveator.loadSave() == True:
+        if self.saveator.loadSave():
             self.showInformation()
         else:
             self.saveator.choseName()
@@ -35,8 +36,8 @@ class Game:
         self.saveator.updateStats()
         self.mainMenu()
 
-    def mainMenu(self, jump = False):
-        if jump == False:
+    def mainMenu(self, jump=False):
+        if not jump:
             choice = self.printator.showMainMenu()
         else:
             choice = jump
@@ -62,7 +63,7 @@ class Game:
                 self.mainMenu()
         elif choice == 3:
             save = self.saveator.save()
-            if save != True:
+            if not save:
                 self.mainMenu()
         elif choice == 10:
             self.mainMenu()
