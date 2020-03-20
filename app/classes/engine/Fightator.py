@@ -7,6 +7,7 @@ from colorama import Fore, Back, Style
 from classes.char.Character import Character
 from settings.Settings import Settings
 
+
 # Fight engine
 class Fightator:
 
@@ -21,7 +22,7 @@ class Fightator:
         self.lastAtk = 0
         self.me = self.saveator.me
         self.me.hp = self.me.maxHp
-        self.monster = Character(api,'monster')
+        self.monster = Character(api, 'monster')
 
     def quickBattle(self):
         self.printator.addSpace(20)
@@ -54,14 +55,14 @@ class Fightator:
                 self.battleAction()
         elif action == 'escape':
             escape = self.escape()
-            if escape == True:
+            if escape:
                 self.end = 1
                 return 0
             else:
                 self.cpuTurn()
         elif action == 'pass':
             self.cpuTurn()
-        elif action == False:
+        elif not action:
             self.printator.success("\x1B[3mBad entry\x1B[23m", 2)
             self.battleAction()
 
@@ -106,18 +107,18 @@ class Fightator:
                 caster.spe['effect']['minRange'], caster.spe['effect']['maxRange'])
             if spellTarget == 'self':
                 self.printator.useSpell(self.monster.name, spellName, spellFocus,
-                                   self.monster.name, spellAlterate, spellPower, True)
+                                        self.monster.name, spellAlterate, spellPower, True)
             else:
                 self.printator.useSpell(caster, spellName, spellFocus,
-                                   self.me, spellAlterate, spellPower)
+                                        self.me, spellAlterate, spellPower)
         else:
             spellPower = caster.spe['effect']['value']
             if spellTarget == 'self':
                 self.printator.useSpell(self.saveator.charName, spellName, spellFocus,
-                                   self.saveator.charName, spellAlterate, spellPower, True)
+                                        self.saveator.charName, spellAlterate, spellPower, True)
             else:
                 self.printator.useSpell(caster, spellName, spellFocus,
-                                   self.monster, spellAlterate, spellPower)
+                                        self.monster, spellAlterate, spellPower)
             self.useSpe += 1
 
         if caster.type == 'monster':
@@ -126,7 +127,7 @@ class Fightator:
                 return True
             else:
                 self.calcSpell(self.me, spellFocus,
-                            spellAlterate, spellPower)
+                               spellAlterate, spellPower)
                 return True
         else:
             if spellTarget == 'self':
@@ -134,7 +135,7 @@ class Fightator:
                 return True
             else:
                 self.calcSpell(self.monster, spellFocus,
-                            spellAlterate, spellPower)
+                               spellAlterate, spellPower)
                 return True
 
     def calcSpell(self, target, focus, alt, power):
@@ -168,7 +169,7 @@ class Fightator:
             self.printator.success(self.monster.name + ' protect him !')
             self.protectAction(self.monster)
         elif action == 3:
-            if self.settings.validateTurn(self.turn) == True:
+            if self.settings.validateTurn(self.turn):
                 self.printator.success(self.monster.name + ' use a special spell !')
                 self.spell(self.monster)
                 self.protect = 0
@@ -198,11 +199,11 @@ class Fightator:
         level = self.saveator.checkLevel(self.saveator.charLevel, self.saveator.charExp)
         self.printator.addSpace(2)
         self.printator.success('Exp win : ' + Fore.GREEN +
-                          str(self.monster.xp))
+                               str(self.monster.xp))
         self.printator.success('Total exp : ' + Fore.GREEN +
-                          str(self.saveator.charExp))
+                               str(self.saveator.charExp))
         self.printator.addSpace(2)
-        if level == True:
+        if level:
             self.saveator.charLevel += 1
             self.saveator.updateStats()
             self.printator.success(Fore.GREEN + 'Level up !')

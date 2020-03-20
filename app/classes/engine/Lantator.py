@@ -4,11 +4,12 @@ import time
 import select
 from classes.engine.Printator import Printator
 
+
 class Lantator:
 
     def __init__(self, printator):
         self.printator = printator
-        self.host = '127.0.0.1' 
+        self.host = '127.0.0.1'
         self.port = '8000'
 
     def choice(self):
@@ -46,12 +47,12 @@ class Lantator:
         try:
             self.connection.connect((self.host, int(self.port)))
             self.printator.success('Connection etablished on port {port}'.format(port=self.port))
-            connection = True
-            while connection == True:
+            self.connection = True
+            while connection:
                 data = input('>>> ')
                 self.connection.send(data.encode())
                 if data == 'exit':
-                    connection == False
+                    self.connection = False
                     return True
         except Exception as e:
             print(e)

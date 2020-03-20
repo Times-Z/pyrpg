@@ -5,6 +5,7 @@ import json
 from colorama import Fore, Back, Style
 from settings.Settings import Settings
 
+
 # Only print & choice class
 
 
@@ -14,20 +15,20 @@ class Printator():
         - Use success function to print
     """
 
-    def __init__(self, classes = None):
+    def __init__(self, classes=None):
         if classes is not None:
             self.classes = classes
 
-    def debug(self, value = ''):
+    def debug(self, value=''):
         valType = type(value).__name__
         data = {
-            'Type' : valType,
+            'Type': valType,
             'Content': str(value)
         }
         data = json.dumps(data, indent=4)
         return print(data)
 
-    def addSpace(self, space = 1):
+    def addSpace(self, space=1):
         for i in range(space):
             print('')
         return True
@@ -89,7 +90,7 @@ class Printator():
                                      (&@@&@%&&@@&@&@  @&&&@@&@%&&@@&,                               
         """)
 
-    def loading(self, valmin, valmax, mess = ''):
+    def loading(self, valmin, valmax, mess=''):
         os.system('setterm -cursor off')
         begin = "["
         close = "]"
@@ -136,7 +137,7 @@ class Printator():
         else:
             return False
 
-    def saveFound(self, save, action = None):
+    def saveFound(self, save, action=None):
         self.success('Save file found for :')
         self.success(
             save["charName"]
@@ -280,12 +281,12 @@ class Printator():
 
     def health(self, maxHealth, health):
         healthDashes = 20
-        dashConvert = int(maxHealth/healthDashes)
-        currentDashes = int(health/dashConvert)
+        dashConvert = int(maxHealth / healthDashes)
+        currentDashes = int(health / dashConvert)
         remainingHealth = healthDashes - currentDashes
         healthDisplay = '█' * currentDashes
         remainingDisplay = ' ' * remainingHealth
-        percent = int((health/maxHealth)*100)
+        percent = int((health / maxHealth) * 100)
         color = Fore.GREEN
         if percent <= 60:
             color = Fore.YELLOW
@@ -332,7 +333,7 @@ class Printator():
                 return 'spe'
             else:
                 self.addSpace(1)
-                Printator.success('Bad entry')
+                self.success('Bad entry')
                 self.addSpace(1)
                 return False
         elif action == "2":
@@ -353,7 +354,7 @@ class Printator():
 
     def useSpell(self, caster, spell, focus, target, alt, power, perso=False):
         self.addSpace(2)
-        if perso == True:
+        if perso:
             print(caster + ' use "' + spell + '" on ' + caster + '!')
         else:
             print(caster.name + ' use "' + spell + '" on ' + target.name + '!')

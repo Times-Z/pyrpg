@@ -2,6 +2,7 @@
 import json
 import random
 
+
 class Character:
     """
         - Type : str "player" or "monster"

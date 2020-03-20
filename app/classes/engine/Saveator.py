@@ -21,7 +21,7 @@ class Saveator:
 
     def loadSave(self):
         data = self.apitator.getSave()
-        if data != False:
+        if data:
             save = json.loads(str(data['save']['save_json']))
             self.printator.saveFound(save)
             loadsave = input("> ")
@@ -43,7 +43,7 @@ class Saveator:
         self.printator.choseName()
         name = input("> ")
         confirm = self.printator.confirm(name, "as name")
-        if confirm == True:
+        if confirm:
             self.charName = name
             self.printator.success(
                 "Your name is " + Fore.GREEN + "{name}".format(name=self.charName))
@@ -59,15 +59,15 @@ class Saveator:
         self.printator.success('Choose your class : ')
         classChose = input("> ")
         if (
-            classChose == "0"
-            or classChose == "1"
-            or classChose == "2"
-            or classChose == "3"
-            or classChose == "4"
+                classChose == "0"
+                or classChose == "1"
+                or classChose == "2"
+                or classChose == "3"
+                or classChose == "4"
         ):
             confirm = self.printator.confirm(
                 self.classes[int(classChose)]["name"], "")
-            if confirm == True:
+            if confirm:
                 self.charClassId = int(classChose)
                 self.me = Character(self.apitator, self.charClassId)
                 return True
@@ -88,12 +88,12 @@ class Saveator:
 
     def save(self):
         data = self.apitator.getSave()
-        if data != False:
+        if data:
             save = json.loads(str(data['save']['save_json']))
             action = self.printator.saveFound(save, 1)
-            if action == True:
+            if action:
                 rm = self.apitator.removeSave()
-                if rm == True:
+                if rm:
                     self.save()
                 else:
                     self.printator.success(Fore.RED + 'Error on delete save')
@@ -113,7 +113,7 @@ class Saveator:
             }
             data = json.dumps(json_data)
             saved = self.apitator.save(data)
-            if saved == True:
+            if saved:
                 self.printator.saved()
             else:
                 self.printator.success(str(saved))
@@ -121,11 +121,11 @@ class Saveator:
 
     def removeSave(self):
         remove = self.printator.removeSave()
-        if remove == True:
+        if remove:
             data = self.apitator.getSave()
-            if data != False:
+            if data:
                 rm = self.apitator.removeSave()
-                if rm == True:
+                if rm:
                     self.printator.success(
                         Fore.GREEN + 'removing save file success')
                     return True

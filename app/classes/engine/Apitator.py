@@ -8,6 +8,7 @@ import getpass
 from colorama import Fore, Back, Style
 from classes.engine.Printator import Printator
 
+
 class Apitator:
     """
         Get data from api
@@ -38,28 +39,29 @@ class Apitator:
                 self.printator.success(Fore.RED + "API local not responding")
                 time.sleep(0.5)
                 self.printator.success('To start the local API refer you to https://github.com/Crash-Zeus/pyrpgApi')
-                self.printator.success('If your local API is started and the problem persists checked ip of API container')
+                self.printator.success(
+                    'If your local API is started and the problem persists checked ip of API container')
                 self.printator.success('The default ip for local API in the program is ' + Fore.GREEN + self.localApi)
                 sys.exit()
-    
-    def login(self, log = False):
-        if log == False:
+
+    def login(self, log=False):
+        if not log:
             logs = self.printator.logMenu()
         elif log == 1:
             logs = 'signin'
         else:
             logs = 'signup'
         if logs == 'signin':
-            if log == False:
+            if not log:
                 self.printator.success('Create an account')
             email = input('Email > ')
             username = input('Pseudo > ')
             passw = self.registeryPass()
-            if passw == False:
+            if not passw:
                 self.login(1)
             data = {
-                "username" : username,
-                "email" : email,
+                "username": username,
+                "email": email,
                 "password": passw
             }
             r = requests.post(self.ip + 'signup', data)
@@ -77,8 +79,8 @@ class Apitator:
             email = input('Email > ')
             password = getpass.getpass(prompt='Password > ', stream=None)
             data = {
-                "email" : email,
-                "password" : password
+                "email": email,
+                "password": password
             }
             r = requests.post(self.ip + 'login', data)
             if r.status_code == 200:
@@ -99,18 +101,18 @@ class Apitator:
             return False
 
     def getSave(self):
-        header = {'Authorization':'Bearer ' + self.token}
+        header = {'Authorization': 'Bearer ' + self.token}
         r = requests.post(self.ip + 'getSave', headers=header)
         if r.status_code == 200:
-            if r.json()['save'] != None:
+            if r.json()['save'] is not None:
                 return r.json()
             else:
                 return False
         else:
             return r.json()['message']
-    
+
     def removeSave(self):
-        header = {'Authorization':'Bearer ' + self.token}
+        header = {'Authorization': 'Bearer ' + self.token}
         r = requests.post(self.ip + 'delSave', headers=header)
         if r.status_code == 200:
             return True
@@ -118,8 +120,8 @@ class Apitator:
             return r.json()
 
     def save(self, raw):
-        header = {'Authorization':'Bearer ' + self.token}
-        data = {"save":raw}
+        header = {'Authorization': 'Bearer ' + self.token}
+        data = {"save": raw}
         r = requests.post(self.ip + 'save', data, headers=header)
         if r.status_code == 200:
             return True
@@ -133,13 +135,13 @@ class Apitator:
         else:
             return r.json()['message']
 
-    def getClass(self, cID = False):
+    def getClass(self, cID=False):
         apiClass = self.requestClass()
-        if cID == False:
+        if not cID:
             write = False
             with open('/app/settings/tmp.json', 'a') as f:
                 f.write('[')
-                for x in range (0,len(apiClass)):
+                for x in range(0, len(apiClass)):
                     toDict = json.loads(apiClass[x]['class_json'])
                     toJson = json.dump(toDict, f)
                     if x != (len(apiClass) - 1):
@@ -147,7 +149,7 @@ class Apitator:
                 f.write(']')
                 f.close()
                 write = True
-            if write == True:
+            if write:
                 with open('/app/settings/tmp.json', 'r') as f:
                     loads = json.load(f)
                 os.remove('/app/settings/tmp.json')
@@ -155,7 +157,7 @@ class Apitator:
         else:
             toDict = json.loads(apiClass[cID]['class_json'])
             return loads
-    
+
     def getLevels(self):
         r = requests.get(self.ip + 'levels')
         if r.status_code == 200:
@@ -163,7 +165,7 @@ class Apitator:
             return levels
         else:
             return r.json()['message']
-    
+
     def requestMonster(self):
         r = requests.get(self.ip + 'monsters')
         if r.status_code == 200:
@@ -176,7 +178,7 @@ class Apitator:
         write = False
         with open('/app/settings/tmp.json', 'a') as f:
             f.write('[')
-            for x in range (0,len(apiMonster)):
+            for x in range(0, len(apiMonster)):
                 toDict = json.loads(apiMonster[x]['monster_json'])
                 toJson = json.dump(toDict, f)
                 if x != (len(apiMonster) - 1):
@@ -184,7 +186,7 @@ class Apitator:
             f.write(']')
             f.close()
             write = True
-        if write == True:
+        if write:
             with open('/app/settings/tmp.json', 'r') as f:
                 loads = json.load(f)
             os.remove('/app/settings/tmp.json')
