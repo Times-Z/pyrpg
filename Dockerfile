@@ -1,7 +1,7 @@
 
 FROM python:3.8.1-slim
 
-RUN pip3 install requests && pip3 install colorama
+RUN pip3 install requests && pip3 install colorama && pip3 install websocket
 
 COPY ./app /app
 WORKDIR /app
