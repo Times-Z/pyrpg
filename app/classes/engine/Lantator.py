@@ -2,6 +2,8 @@
 import socket
 import time
 import select
+import asyncio
+import websocket
 from classes.engine.Printator import Printator
 
 
