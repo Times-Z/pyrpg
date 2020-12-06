@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import os
+
 # My classes
 from classes.engine.Printator import Printator
 from classes.engine.Saveator import Saveator
@@ -8,6 +10,12 @@ from classes.engine.Fightator import Fightator
 from classes.engine.Lantator import Lantator
 from classes.engine.Apitator import Apitator
 
+from dotenv import load_dotenv
+load_dotenv()
+if os.getenv('DEBUG') == 'True':
+    import debugpy
+    debugpy.listen(('0.0.0.0',5678))
+    debugpy.wait_for_client()
 
 class Game:
     """
